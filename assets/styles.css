@@ -458,6 +458,133 @@ html[data-lang-view="es"] [lang="en"] {
   outline-offset: 2px;
 }
 
+/* ═══ MRK1 — UTILITARIAN HOME ══════════════════════════════
+   Word-of-mouth avatar: easy-contact + due-diligence.
+   No chapter slabs, no thirds. Reads like a directory listing.
+   ═════════════════════════════════════════════════════════ */
+
+body.page-mrk1 main.mrk1 {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.ident {
+  padding-bottom: 2rem;
+  border-bottom: var(--hair) solid var(--ink);
+  margin-bottom: 2rem;
+}
+.ident-handle {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+.ident-handle::before {
+  content: "» ";
+  color: var(--accent);
+}
+.ident-pitch {
+  font-family: var(--font-subhead);
+  font-weight: 600;
+  font-size: clamp(var(--text-xl), 3.5vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  max-width: 42ch;
+  margin: 0;
+}
+.ident-pitch [lang="es"] {
+  display: block;
+  font-size: 0.78em;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: var(--hair) solid var(--faint);
+  max-width: 42ch;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.section-label::before {
+  content: "●";
+  color: var(--accent);
+  font-size: 0.7em;
+}
+.section-tagline {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  max-width: 48ch;
+  letter-spacing: 0.02em;
+}
+
+.contact-block {
+  padding: 1.25rem 0 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: var(--hair) solid var(--ink);
+}
+.contact-dl {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.contact-row {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-top: var(--hair) solid var(--faint);
+}
+.contact-row:first-child { border-top: none; }
+.contact-row dt {
+  color: var(--muted);
+  text-transform: lowercase;
+  letter-spacing: 0.06em;
+}
+.contact-row dd {
+  color: var(--ink);
+  margin: 0;
+}
+.contact-row dd a {
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+}
+.contact-row dd a:hover,
+.contact-row dd a:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.work-block {
+  padding: 1.25rem 0 2rem;
+}
+
+@media (max-width: 700px) {
+  .contact-row {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    padding: 0.65rem 0;
+  }
+  .ident-pitch { font-size: var(--text-lg); }
+}
+
 /* ═══ CHAPTER PRIMITIVE ════════════════════════════════════ */
 
 .chapter {

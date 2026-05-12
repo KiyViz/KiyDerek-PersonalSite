@@ -9,14 +9,14 @@
 <meta name="theme-color" content="#f7eee3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1e1310" media="(prefers-color-scheme: dark)">
 <script>
-(function(){var H=document.documentElement;var VS=/^(stone|earth|amber|green|csya-a|csya-b|csya-c)$/;var VM=/^(light|dark|oled)$/;var VL=/^(all|en|es)$/;function q(n){try{var m=location.search.match(new RegExp("[?&]"+n+"=([^&#]+)"));return m?decodeURIComponent(m[1]):null;}catch(e){return null;}}function ls(k){try{return localStorage.getItem(k);}catch(e){return null;}}function sv(k,v){try{localStorage.setItem(k,v);}catch(e){}}try{var qs=q("scheme"),qm=q("mode"),ql=q("lang");var s=qs||ls("dk-scheme"),m=qm||ls("dk-mode"),l=ql||ls("dk-lang-view");if(s&&VS.test(s)){H.setAttribute("data-scheme",s);sv("dk-scheme",s);}if(m&&VM.test(m)){H.setAttribute("data-mode",m);sv("dk-mode",m);}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)H.setAttribute("data-mode","dark");if(l&&VL.test(l)){H.setAttribute("data-lang-view",l);sv("dk-lang-view",l);}if(qs||qm||ql){try{var u=new URL(location.href);u.searchParams.delete("scheme");u.searchParams.delete("mode");u.searchParams.delete("lang");history.replaceState(null,"",u.pathname+(u.search||"")+(u.hash||""));}catch(e){}}}catch(e){}})();
+(function(){var H=document.documentElement;var VS=/^(stone|earth|amber|green|csya-a|csya-b|csya-c|oled)$/;var VM=/^(light|dark|oled)$/;var VL=/^(all|en|es)$/;function q(n){try{var m=location.search.match(new RegExp("[?&]"+n+"=([^&#]+)"));return m?decodeURIComponent(m[1]):null;}catch(e){return null;}}function ls(k){try{return localStorage.getItem(k);}catch(e){return null;}}function sv(k,v){try{localStorage.setItem(k,v);}catch(e){}}try{var qs=q("scheme"),qm=q("mode"),ql=q("lang");var s=qs||ls("dk-scheme"),m=qm||ls("dk-mode"),l=ql||ls("dk-lang-view");if(s&&VS.test(s)){H.setAttribute("data-scheme",s);sv("dk-scheme",s);}if(m&&VM.test(m)){H.setAttribute("data-mode",m);sv("dk-mode",m);}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)H.setAttribute("data-mode","dark");if(l&&VL.test(l)){H.setAttribute("data-lang-view",l);sv("dk-lang-view",l);}if(qs||qm||ql){try{var u=new URL(location.href);u.searchParams.delete("scheme");u.searchParams.delete("mode");u.searchParams.delete("lang");history.replaceState(null,"",u.pathname+(u.search||"")+(u.hash||""));}catch(e){}}}catch(e){}})();
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f7eee3'/%3E%3Cpath fill='%23241712' d='M14 12h18c10 0 18 9 18 20s-8 20-18 20H14V12zm10 10v20h6c5 0 9-4 9-10s-4-10-9-10h-6z'/%3E%3Crect x='14' y='56' width='36' height='4' fill='%23e8859f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/styles.css?v=0.3">
-<script src="../assets/content.js?v=0.3"></script>
+<link rel="stylesheet" href="../assets/styles.css?v=0.4">
+<script src="../assets/content.js?v=0.4"></script>
 </head>
 <body>
 <a href="#main" class="skip">Skip to content</a>
@@ -38,6 +38,19 @@
       <button type="button" data-set-mode="light" aria-pressed="true">light</button>
       <button type="button" data-set-mode="dark" aria-pressed="false">dark</button>
     </div>
+    <label class="scheme-select-label">
+      <span class="sr-only">Theme</span>
+      <select class="scheme-select" data-scheme-select aria-label="Theme scheme">
+        <option value="csya-a">csya · a · barragan</option>
+        <option value="csya-b">csya · b · legorreta</option>
+        <option value="csya-c">csya · c · productora</option>
+        <option value="stone">stone</option>
+        <option value="earth">earth</option>
+        <option value="amber">amber</option>
+        <option value="green">green</option>
+        <option value="oled">oled · battery saver</option>
+      </select>
+    </label>
   </div>
 </header>
 
@@ -117,6 +130,6 @@
   <span class="status-right"><span data-status-clock>–– PT</span><span class="status-sep">·</span><span data-scheme-indicator>csya-a</span><span class="status-sep">/</span><span data-mode-indicator>light</span></span>
 </footer>
 
-<script src="../assets/scripts.js?v=0.3"></script>
+<script src="../assets/scripts.js?v=0.4"></script>
 </body>
 </html>

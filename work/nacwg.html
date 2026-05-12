@@ -61,7 +61,7 @@
 <script>
 (function () {
   var H = document.documentElement;
-  var VS = /^(stone|earth|amber|green|csya-a|csya-b|csya-c)$/;
+  var VS = /^(stone|earth|amber|green|csya-a|csya-b|csya-c|oled)$/;
   var VM = /^(light|dark|oled)$/;
   var VL = /^(all|en|es)$/;
   function q(name){try{var m=location.search.match(new RegExp("[?&]"+name+"=([^&#]+)"));return m?decodeURIComponent(m[1]):null;}catch(e){return null;}}
@@ -85,8 +85,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="../assets/styles.css?v=0.3">
-<script src="../assets/content.js?v=0.3"></script>
+<link rel="stylesheet" href="../assets/styles.css?v=0.4">
+<script src="../assets/content.js?v=0.4"></script>
 </head>
 <body class="page-work page-case-study">
 
@@ -112,6 +112,19 @@
       <button type="button" data-set-mode="light" aria-pressed="true">light</button>
       <button type="button" data-set-mode="dark"  aria-pressed="false">dark</button>
     </div>
+    <label class="scheme-select-label">
+      <span class="sr-only">Theme</span>
+      <select class="scheme-select" data-scheme-select aria-label="Theme scheme">
+        <option value="csya-a">csya · a · barragan</option>
+        <option value="csya-b">csya · b · legorreta</option>
+        <option value="csya-c">csya · c · productora</option>
+        <option value="stone">stone</option>
+        <option value="earth">earth</option>
+        <option value="amber">amber</option>
+        <option value="green">green</option>
+        <option value="oled">oled · battery saver</option>
+      </select>
+    </label>
   </div>
 </header>
 
@@ -212,7 +225,7 @@
   </span>
 </footer>
 
-<script src="../assets/scripts.js?v=0.3"></script>
+<script src="../assets/scripts.js?v=0.4"></script>
 
 </body>
 </html>

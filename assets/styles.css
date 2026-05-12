@@ -117,6 +117,19 @@ html[data-scheme="green"][data-mode="oled"] {
   --hl-bg:#183010; --hl-fg:#a4d67a; color-scheme:dark;
 }
 
+/* ── OLED — pure-black battery-saver scheme, mode-agnostic ── */
+/* Background stays #000000 regardless of light/dark/oled mode toggle.
+   Foreground colors keep the CSYA-A accent family for brand continuity
+   but brightened for legibility against true black. */
+html[data-scheme="oled"] {
+  --paper:#000000; --paper-rgb:0,0,0; --paper-raised:#050505; --paper-inset:#000000;
+  --ink:#e8e8e8; --muted:#a0a0a0; --faint:#555555;
+  --accent:#ff7a96; --accent-deco:#ff9ab0;
+  --accent-2:#ff8866; --accent-2-deco:#ffa884;
+  --rule:#e8e8e8; --glow:rgba(255,122,150,0.12); --accent-2-glow:rgba(255,136,102,0.10);
+  --hl-bg:#4a1f2a; --hl-fg:#ff7a96; color-scheme:dark;
+}
+
 /* ─────────────────────────────────────────────────────────
    CSYA — Con Sabor y Amor — three architectural palettes
    (Mexican modernist: Barragan, Legorreta, PRODUCTORA MX)
@@ -401,6 +414,42 @@ header.site-header {
 .scheme-toggle button[aria-pressed="true"] { background: var(--accent); color: var(--paper); }
 .mode-toggle button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
 .lang-toggle button[aria-pressed="true"] { background: var(--accent-2); color: var(--paper); }
+
+/* Theme scheme dropdown — native <select> styled to match the toggles */
+.scheme-select-label {
+  display: inline-flex;
+  align-items: center;
+}
+.scheme-select {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  background-color: transparent;
+  color: var(--ink);
+  border: var(--hair) solid var(--ink);
+  padding: 0.35rem 1.6rem 0.35rem 0.55rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6' fill='none' stroke='%23000' stroke-width='1.4'%3E%3Cpolyline points='1 1 5 5 9 1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.45rem center;
+  background-size: 0.6rem;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.scheme-select:hover {
+  background-color: var(--glow);
+}
+.scheme-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.scheme-select option {
+  background-color: var(--paper);
+  color: var(--ink);
+}
 .scheme-toggle button:hover:not([aria-pressed="true"]),
 .mode-toggle button:hover:not([aria-pressed="true"]) {
   background: var(--glow);
@@ -443,11 +492,11 @@ html[data-lang-view="all"] main [lang="es"]:not(html) {
 }
 
 html[data-lang-view="all"] main [lang="en"]:not(html) {
-  color: color-mix(in oklab, var(--ink) 82%, var(--accent) 18%);
+  color: color-mix(in oklab, var(--ink) 65%, var(--accent) 35%);
 }
 
 html[data-lang-view="all"] main [lang="es"]:not(html) {
-  color: color-mix(in oklab, var(--ink) 82%, var(--accent-2) 18%);
+  color: color-mix(in oklab, var(--ink) 65%, var(--accent-2) 35%);
   margin-top: 0.4em;
 }
 

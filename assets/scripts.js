@@ -22,12 +22,13 @@
   const SCHEME_KEY = "dk-scheme";
   const MODE_KEY   = "dk-mode";
   const LANG_KEY   = "dk-lang-view";
-  const VALID_SCHEMES = ["stone", "earth", "amber", "green", "csya-a", "csya-b", "csya-c"];
+  const VALID_SCHEMES = ["stone", "earth", "amber", "green", "csya-a", "csya-b", "csya-c", "oled"];
   const VALID_MODES   = ["light", "dark", "oled"];
   const VALID_LANGS   = ["all", "en", "es"];
   const DEFAULT_SCHEME = "csya-a";
 
   const schemeButtons = document.querySelectorAll(".scheme-toggle button[data-set-scheme]");
+  const schemeSelect  = document.querySelector("[data-scheme-select]");
   const modeButtons   = document.querySelectorAll(".mode-toggle button[data-set-mode]");
   const langButtons   = document.querySelectorAll(".lang-toggle button[data-set-lang]");
   const announcer     = document.getElementById("theme-announcer");
@@ -75,6 +76,9 @@
     schemeButtons.forEach((b) =>
       b.setAttribute("aria-pressed", b.dataset.setScheme === scheme ? "true" : "false")
     );
+    if (schemeSelect && schemeSelect.value !== scheme) {
+      schemeSelect.value = scheme;
+    }
     lsSet(SCHEME_KEY, scheme);
     updateMetaThemeColor();
     const ind = document.querySelector("[data-scheme-indicator]");
@@ -111,6 +115,12 @@
     applyScheme(b.dataset.setScheme);
     announce("Scheme: " + b.dataset.setScheme);
   }));
+  if (schemeSelect) {
+    schemeSelect.addEventListener("change", () => {
+      applyScheme(schemeSelect.value);
+      announce("Scheme: " + schemeSelect.value);
+    });
+  }
   modeButtons.forEach((b) => b.addEventListener("click", () => {
     applyMode(b.dataset.setMode);
     announce("Mode: " + b.dataset.setMode);

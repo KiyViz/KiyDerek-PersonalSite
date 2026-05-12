@@ -67,9 +67,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/styles.css?v=0.8">
+<link rel="stylesheet" href="assets/styles.css?v=0.9">
 
-<script src="assets/content.js?v=0.8"></script>
+<script src="assets/content.js?v=0.9"></script>
 
 <script type="application/ld+json">
 {
@@ -123,32 +123,47 @@
     </h1>
   </section>
 
-  <section id="contact" class="contact-block" aria-labelledby="contact-h">
+  <section id="contact" class="contact-section" aria-labelledby="contact-h">
     <h2 id="contact-h" class="section-label">
       <span lang="en">Contact</span>
       <span lang="es" aria-hidden="true">Contacto</span>
     </h2>
+    <p class="contact-intro">
+      <span lang="en">Reach me directly, or write a brief and I'll respond fast.</span>
+      <span lang="es" aria-hidden="true">Contáctame directamente, o escribe un resumen y te respondo pronto.</span>
+    </p>
+
+    <h3 class="contact-subhead">
+      <span lang="en">direct</span>
+      <span lang="es" aria-hidden="true">directo</span>
+    </h3>
     <dl class="contact-dl">
       <div class="contact-row">
         <dt>email</dt>
-        <dd><a href="mailto:derek@kiyviz.com">derek@kiyviz.com</a></dd>
+        <dd>
+          <a href="mailto:derek@kiyviz.com">derek@kiyviz.com</a>
+          <button type="button" class="copy-btn" data-copy="derek@kiyviz.com" data-copy-label="email" aria-label="Copy email address">copy</button>
+        </dd>
       </div>
       <div class="contact-row">
         <dt>phone</dt>
-        <dd><a href="tel:+18584323234">+1 (858) 432-3234</a></dd>
+        <dd>
+          <a href="tel:+18584323234">+1 (858) 432-3234</a>
+          <button type="button" class="copy-btn" data-copy="+1 858 432 3234" data-copy-label="phone number" aria-label="Copy phone number">copy</button>
+        </dd>
       </div>
       <div class="contact-row">
         <dt>consult</dt>
         <dd>
-          <span lang="en">$97 / 20-min call + 1-page written action plan — email to schedule</span>
-          <span lang="es" aria-hidden="true">$97 / llamada de 20 min + plan de acción de 1 página — escríbeme para agendar</span>
+          <span lang="en">$97 / 20-min call + 1-page written action plan</span>
+          <span lang="es" aria-hidden="true">$97 / llamada de 20 min + plan de acción de 1 página</span>
         </dd>
       </div>
       <div class="contact-row">
         <dt>project</dt>
         <dd>
-          <span lang="en">done-for-you work, 40 – 200 hours typical — <a href="contact/index.html">full scope</a></span>
-          <span lang="es" aria-hidden="true">proyectos a la medida, típicamente 40 – 200 horas — <a href="contact/index.html">alcance completo</a></span>
+          <span lang="en">done-for-you, 40 – 200 hours — <a href="contact/index.html#faq">full scope / FAQ</a></span>
+          <span lang="es" aria-hidden="true">a la medida, 40 – 200 horas — <a href="contact/index.html#faq">alcance / FAQ</a></span>
         </dd>
       </div>
       <div class="contact-row">
@@ -156,6 +171,101 @@
         <dd>Escondido, CA · Pacific time</dd>
       </div>
     </dl>
+
+    <h3 class="contact-subhead">
+      <span lang="en">write a brief</span>
+      <span lang="es" aria-hidden="true">escribe un resumen</span>
+    </h3>
+
+    <form class="contact-form" data-contact-form onsubmit="event.preventDefault()" aria-label="Project brief composer">
+
+      <div class="form-row-pair">
+        <div class="form-row">
+          <label class="form-label" for="f-name">
+            <span lang="en">your name</span><span lang="es" aria-hidden="true">tu nombre</span>
+            <span class="req" aria-hidden="true">*</span>
+          </label>
+          <input type="text" class="form-input" id="f-name" name="name" required autocomplete="name" placeholder="Sarah Chen">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-email">
+            <span lang="en">your email</span><span lang="es" aria-hidden="true">tu correo</span>
+            <span class="req" aria-hidden="true">*</span>
+          </label>
+          <input type="email" class="form-input" id="f-email" name="email" required autocomplete="email" placeholder="sarah@example.com">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <span class="form-label">
+          <span lang="en">type</span><span lang="es" aria-hidden="true">tipo</span>
+        </span>
+        <div class="form-chips" role="radiogroup" aria-label="Project type">
+          <label><input type="radio" name="type" value="consult" checked><span class="chip-label">consult · $97</span></label>
+          <label><input type="radio" name="type" value="project"><span class="chip-label"><span lang="en">project</span><span lang="es" aria-hidden="true">proyecto</span></span></label>
+          <label><input type="radio" name="type" value="question"><span class="chip-label"><span lang="en">question</span><span lang="es" aria-hidden="true">pregunta</span></span></label>
+          <label><input type="radio" name="type" value="other"><span class="chip-label"><span lang="en">other</span><span lang="es" aria-hidden="true">otro</span></span></label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="form-label" for="f-summary">
+          <span lang="en">one-line summary</span><span lang="es" aria-hidden="true">resumen en una línea</span>
+          <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input type="text" class="form-input" id="f-summary" name="summary" required placeholder="Cartography for state water policy briefing">
+      </div>
+
+      <div class="form-row">
+        <label class="form-label" for="f-details">
+          <span lang="en">tell me more</span><span lang="es" aria-hidden="true">cuéntame más</span>
+          <span class="req" aria-hidden="true">*</span>
+        </label>
+        <textarea class="form-textarea" id="f-details" name="details" required rows="5" placeholder="Context, the question you're trying to answer, anything I should see or read…"></textarea>
+      </div>
+
+      <div class="form-row-pair">
+        <div class="form-row">
+          <label class="form-label" for="f-budget">
+            <span lang="en">budget hint</span><span lang="es" aria-hidden="true">presupuesto (opcional)</span>
+          </label>
+          <input type="text" class="form-input" id="f-budget" name="budget" placeholder="~$5K, or 'flexible'">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-timeline">
+            <span lang="en">timeline</span><span lang="es" aria-hidden="true">fechas (opcional)</span>
+          </label>
+          <input type="text" class="form-input" id="f-timeline" name="timeline" placeholder="Before summer 2026">
+        </div>
+      </div>
+
+      <div class="form-preview-wrap">
+        <label class="form-label" for="f-preview">
+          <span lang="en">preview — edit before sending</span><span lang="es" aria-hidden="true">vista previa — edita antes de enviar</span>
+        </label>
+        <textarea class="form-preview" id="f-preview" data-form-preview rows="14" aria-label="Generated message preview"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="form-btn form-btn-primary" data-form-send aria-label="Send message via email">
+          <span lang="en">✉ send via email</span><span lang="es" aria-hidden="true">✉ enviar por correo</span>
+        </button>
+        <button type="button" class="form-btn" data-form-copy aria-label="Copy message to clipboard">
+          <span lang="en">📋 copy message</span><span lang="es" aria-hidden="true">📋 copiar mensaje</span>
+        </button>
+        <button type="button" class="form-btn" data-form-share aria-label="Share via system share sheet" hidden>
+          <span lang="en">⤴ share</span><span lang="es" aria-hidden="true">⤴ compartir</span>
+        </button>
+      </div>
+
+      <div class="form-meta">
+        <span data-form-draft-hint></span>
+        <button type="button" class="form-clear" data-form-clear aria-label="Clear the draft and reset the form">
+          <span lang="en">clear draft</span><span lang="es" aria-hidden="true">borrar</span>
+        </button>
+      </div>
+
+    </form>
   </section>
 
   <section id="work" class="work-block" aria-labelledby="work-h" data-past-zone data-past-view="list" data-past-filter="all">
@@ -288,7 +398,7 @@
   </span>
 </footer>
 
-<script src="assets/scripts.js?v=0.8"></script>
+<script src="assets/scripts.js?v=0.9"></script>
 
 </body>
 </html>

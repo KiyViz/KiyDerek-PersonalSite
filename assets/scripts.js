@@ -185,6 +185,279 @@
     "language"
   );
 
+  /* ══ COPY + TOAST UTILITIES (lifted from justtheconstitution) ══
+     Clipboard write with execCommand fallback for older browsers,
+     plus a fixed-position toast with smooth fade for confirmation.
+     ════════════════════════════════════════════════════════ */
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      ta.setAttribute("readonly", "");
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (err) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+  }
+
+  let toastEl = null;
+  let toastTimer = null;
+  function showToast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement("div");
+      toastEl.className = "toast";
+      toastEl.setAttribute("role", "status");
+      toastEl.setAttribute("aria-live", "polite");
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    toastEl.classList.add("toast-visible");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toastEl.classList.remove("toast-visible");
+    }, 1600);
+  }
+
+  /* ══ DIRECT-CONTACT COPY BUTTONS ════════════════════════ */
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async (ev) => {
+      ev.preventDefault();
+      const text = btn.getAttribute("data-copy");
+      const label = btn.getAttribute("data-copy-label") || text;
+      const ok = await copyText(text);
+      showToast(ok ? "Copied " + label : "Copy failed — select and copy manually");
+      btn.focus();
+    });
+  });
+
+  /* ══ CONTACT FORM — compose, persist, send/copy/share ══════
+     Pure client-side composer. No backend. The form's inputs
+     drive a live preview textarea. Three actions: send via
+     mailto:, copy to clipboard, native Web Share where available.
+     Draft persists to localStorage on every input.
+     ════════════════════════════════════════════════════════ */
+
+  const form = document.querySelector("[data-contact-form]");
+  if (form) {
+    const FORM_KEY = "dk-form-draft";
+    const MAILTO_TO = "derek@kiyviz.com";
+    const MAILTO_LIMIT = 1800; // mailto: body length safety threshold
+
+    const fName    = form.querySelector('[name="name"]');
+    const fEmail   = form.querySelector('[name="email"]');
+    const fType    = form.querySelectorAll('[name="type"]');
+    const fSummary = form.querySelector('[name="summary"]');
+    const fDetails = form.querySelector('[name="details"]');
+    const fBudget  = form.querySelector('[name="budget"]');
+    const fTimeline= form.querySelector('[name="timeline"]');
+    const preview  = form.querySelector("[data-form-preview]");
+    const btnSend  = form.querySelector("[data-form-send]");
+    const btnCopy  = form.querySelector("[data-form-copy]");
+    const btnShare = form.querySelector("[data-form-share]");
+    const btnClear = form.querySelector("[data-form-clear]");
+    const draftHint= form.querySelector("[data-form-draft-hint]");
+
+    function readState() {
+      let type = "consult";
+      fType.forEach((r) => { if (r.checked) type = r.value; });
+      return {
+        name:    fName.value.trim(),
+        email:   fEmail.value.trim(),
+        type:    type,
+        summary: fSummary.value.trim(),
+        details: fDetails.value.trim(),
+        budget:  fBudget ? fBudget.value.trim() : "",
+        timeline: fTimeline ? fTimeline.value.trim() : ""
+      };
+    }
+
+    function writeState(s) {
+      if (!s) return;
+      if (s.name) fName.value = s.name;
+      if (s.email) fEmail.value = s.email;
+      if (s.summary) fSummary.value = s.summary;
+      if (s.details) fDetails.value = s.details;
+      if (s.budget && fBudget) fBudget.value = s.budget;
+      if (s.timeline && fTimeline) fTimeline.value = s.timeline;
+      if (s.type) {
+        fType.forEach((r) => { r.checked = (r.value === s.type); });
+      }
+    }
+
+    function langView() {
+      return html.getAttribute("data-lang-view") || "all";
+    }
+
+    function compose() {
+      const s = readState();
+      const isES = langView() === "es";
+      const greet = isES ? "Hola Derek," : "Hi Derek,";
+      const intro = isES
+        ? `Soy ${s.name || "[tu nombre]"} (${s.email || "[tu correo]"}).`
+        : `I'm ${s.name || "[your name]"} (${s.email || "[your email]"}).`;
+      const sumLabel  = isES ? "Resumen"   : "Summary";
+      const typeLabel = isES ? "Tipo"      : "Type";
+      const budgLabel = isES ? "Presupuesto" : "Budget";
+      const tmLabel   = isES ? "Fechas"    : "Timeline";
+      const close     = isES ? "Gracias,"  : "Thanks,";
+      const typeDisplay = {
+        consult: isES ? "consulta ($97)" : "consult ($97)",
+        project: isES ? "proyecto a la medida" : "project (done-for-you)",
+        question: isES ? "pregunta" : "question",
+        other:   isES ? "otro" : "other"
+      }[s.type] || s.type;
+
+      const lines = [];
+      lines.push(greet);
+      lines.push("");
+      lines.push(intro);
+      lines.push("");
+      if (s.summary) lines.push(`${sumLabel}: ${s.summary}`);
+      lines.push(`${typeLabel}: ${typeDisplay}`);
+      if (s.budget)   lines.push(`${budgLabel}: ${s.budget}`);
+      if (s.timeline) lines.push(`${tmLabel}: ${s.timeline}`);
+      lines.push("");
+      if (s.details) {
+        lines.push(s.details);
+        lines.push("");
+      }
+      lines.push(close);
+      if (s.name) lines.push(s.name);
+      return lines.join("\n");
+    }
+
+    function refresh() {
+      // Only auto-fill preview if user hasn't manually edited it
+      if (!preview.dataset.userEdited) {
+        preview.value = compose();
+      }
+    }
+
+    // Persist draft (debounced)
+    let saveTimer = null;
+    function saveDraft() {
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(FORM_KEY, JSON.stringify(readState()));
+          if (draftHint) draftHint.textContent = langView() === "es" ? "✓ borrador guardado" : "✓ draft saved";
+        } catch (e) {}
+      }, 350);
+    }
+
+    // Load draft on init
+    try {
+      const raw = localStorage.getItem(FORM_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        writeState(saved);
+        if (draftHint) draftHint.textContent = langView() === "es" ? "✓ borrador restaurado" : "✓ draft restored";
+      }
+    } catch (e) {}
+    refresh();
+
+    // Wire input events
+    form.querySelectorAll("input, textarea").forEach((el) => {
+      el.addEventListener("input", () => {
+        if (el === preview) {
+          preview.dataset.userEdited = "1";
+        } else {
+          refresh();
+        }
+        saveDraft();
+      });
+      el.addEventListener("change", () => {
+        refresh();
+        saveDraft();
+      });
+    });
+
+    // Send via email (mailto:)
+    if (btnSend) {
+      btnSend.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        const s = readState();
+        const subject = s.summary || (langView() === "es" ? "Hola desde derekkiy.com" : "Hello from derekkiy.com");
+        const body = preview.value;
+        const encodedBody = encodeURIComponent(body);
+        if (encodedBody.length > MAILTO_LIMIT) {
+          showToast(langView() === "es"
+            ? "Mensaje largo — usa Copiar y pégalo en tu correo"
+            : "Message is long — use Copy and paste into your email");
+          btnCopy && btnCopy.focus();
+          return;
+        }
+        const url = "mailto:" + MAILTO_TO
+          + "?subject=" + encodeURIComponent(subject)
+          + "&body=" + encodedBody;
+        location.href = url;
+        showToast(langView() === "es" ? "Abriendo tu cliente de correo…" : "Opening your mail client…");
+      });
+    }
+
+    // Copy message
+    if (btnCopy) {
+      btnCopy.addEventListener("click", async (ev) => {
+        ev.preventDefault();
+        const ok = await copyText(preview.value);
+        showToast(ok
+          ? (langView() === "es" ? "Mensaje copiado" : "Message copied")
+          : (langView() === "es" ? "Error al copiar" : "Copy failed"));
+        btnCopy.focus();
+      });
+    }
+
+    // Native share (mobile / supported browsers)
+    if (btnShare) {
+      if (!navigator.share) {
+        btnShare.hidden = true;
+      } else {
+        btnShare.addEventListener("click", async (ev) => {
+          ev.preventDefault();
+          const s = readState();
+          try {
+            await navigator.share({
+              title: s.summary || "derekkiy.com",
+              text: preview.value
+            });
+          } catch (err) {
+            // user cancelled or share failed — fall through silently
+          }
+        });
+      }
+    }
+
+    // Clear draft
+    if (btnClear) {
+      btnClear.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        try { localStorage.removeItem(FORM_KEY); } catch (e) {}
+        form.reset();
+        fType.forEach((r, i) => { r.checked = (i === 0); });
+        delete preview.dataset.userEdited;
+        refresh();
+        if (draftHint) draftHint.textContent = "";
+        showToast(langView() === "es" ? "Borrador borrado" : "Draft cleared");
+        fName.focus();
+      });
+    }
+
+    // Refresh preview when lang view changes (so boilerplate updates)
+    try {
+      const langMO = new MutationObserver(() => refresh());
+      langMO.observe(html, { attributes: true, attributeFilter: ["data-lang-view"] });
+    } catch (e) {}
+  }
+
   /* ══ PAST ZONE — view toggle + kind filter ═════════════ */
 
   const pastZone = document.querySelector("[data-past-zone]");

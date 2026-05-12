@@ -30,7 +30,7 @@
     </section>
  symphonic.html Symphonic Stories Identity deputy.html IOA Deputy Meeting Poster
 -->
-<html lang="en" data-scheme="csya-a" data-mode="light" data-lang-view="all">
+<html lang="en" data-scheme="amber" data-mode="light" data-lang-view="all">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,8 +38,8 @@
 <title>IOA E-Mobility Multilingual Brochure · Derek Kiy</title>
 <meta name="description" content="Trilingual brochure (EN / ES / PT) combining itinerary and briefing for a foreign delegation visit. — case study by Derek Kiy.">
 <meta name="author" content="Derek Kiy">
-<meta name="theme-color" content="#f7eee3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1e1310" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4e9c8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a0f03" media="(prefers-color-scheme: dark)">
 
 <link rel="alternate" hreflang="en" href="https://derekkiy.com/work/ioa.html">
 <link rel="alternate" hreflang="es" href="https://derekkiy.com/work/ioa.html">
@@ -59,7 +59,7 @@
 <script>
 (function () {
   var H = document.documentElement;
-  var VS = /^(stone|earth|amber|green|csya-a|csya-b|csya-c|oled)$/;
+  var VS = /^(amber|green|stone)$/;
   var VM = /^(light|dark|oled)$/;
   var VL = /^(all|en|es)$/;
   function q(name){try{var m=location.search.match(new RegExp("[?&]"+name+"=([^&#]+)"));return m?decodeURIComponent(m[1]):null;}catch(e){return null;}}
@@ -83,8 +83,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="../assets/styles.css?v=0.4">
-<script src="../assets/content.js?v=0.4"></script>
+<link rel="stylesheet" href="../assets/styles.css?v=0.5">
+<script src="../assets/content.js?v=0.5"></script>
 </head>
 <body class="page-work page-case-study">
 
@@ -109,18 +109,14 @@
     <div class="mode-toggle" role="group" aria-label="Brightness mode">
       <button type="button" data-set-mode="light" aria-pressed="true">light</button>
       <button type="button" data-set-mode="dark"  aria-pressed="false">dark</button>
+      <button type="button" data-set-mode="oled"  aria-pressed="false">oled</button>
     </div>
     <label class="scheme-select-label">
       <span class="sr-only">Theme</span>
-      <select class="scheme-select" data-scheme-select aria-label="Theme scheme">
-        <option value="csya-a">csya · a · barragan</option>
-        <option value="csya-b">csya · b · legorreta</option>
-        <option value="csya-c">csya · c · productora</option>
-        <option value="stone">stone</option>
-        <option value="earth">earth</option>
-        <option value="amber">amber</option>
-        <option value="green">green</option>
-        <option value="oled">oled · battery saver</option>
+      <select class="scheme-select" data-scheme-select aria-label="Theme">
+        <option value="amber">amber · warm</option>
+        <option value="green">moss · forest</option>
+        <option value="stone">stone · ocean</option>
       </select>
     </label>
   </div>
@@ -215,13 +211,13 @@
   <span class="status-right">
     <span data-status-clock>–– PT</span>
     <span class="status-sep">·</span>
-    <span data-scheme-indicator>csya-a</span>
+    <span data-scheme-indicator>amber</span>
     <span class="status-sep">/</span>
     <span data-mode-indicator>light</span>
   </span>
 </footer>
 
-<script src="../assets/scripts.js?v=0.4"></script>
+<script src="../assets/scripts.js?v=0.5"></script>
 
 </body>
 </html>

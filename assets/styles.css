@@ -48,30 +48,7 @@ html[data-scheme="stone"][data-mode="oled"] {
   --hl-bg:#1d2f45; --hl-fg:#9bbce0; color-scheme:dark;
 }
 
-/* ── EARTH — KiyViz scheme #2 (parchment + moss) ── */
-html[data-scheme="earth"][data-mode="light"] {
-  --paper:#ece0c4; --paper-rgb:236,224,196; --paper-raised:#f2e8d0; --paper-inset:#e3d6b5;
-  --ink:#2d2416; --muted:#6b5a3e; --faint:#a08a5e;
-  --accent:#a0611a; --accent-deco:#c78725; --accent-2:#506a37; --accent-2-deco:#6a8c4b;
-  --rule:#2d2416; --glow:rgba(199,135,37,0.13); --accent-2-glow:rgba(106,140,75,0.12);
-  --hl-bg:#c78725; --hl-fg:#2d2416; color-scheme:light;
-}
-html[data-scheme="earth"][data-mode="dark"] {
-  --paper:#171b14; --paper-rgb:23,27,20; --paper-raised:#1e2218; --paper-inset:#121510;
-  --ink:#e0d4a8; --muted:#9a8c66; --faint:#6b5e42;
-  --accent:#e4a448; --accent-deco:#e4a448; --accent-2:#94b06e; --accent-2-deco:#94b06e;
-  --rule:#e0d4a8; --glow:rgba(228,164,72,0.14); --accent-2-glow:rgba(148,176,110,0.13);
-  --hl-bg:#5a3a12; --hl-fg:#e4a448; color-scheme:dark;
-}
-html[data-scheme="earth"][data-mode="oled"] {
-  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#0a0a07; --paper-inset:#000;
-  --ink:#c8b98c; --muted:#7a6a50; --faint:#4a412e;
-  --accent:#d4a048; --accent-deco:#d4a048; --accent-2:#7a9860; --accent-2-deco:#7a9860;
-  --rule:#c8b98c; --glow:rgba(212,160,72,0.10); --accent-2-glow:rgba(122,152,96,0.09);
-  --hl-bg:#352310; --hl-fg:#d4a048; color-scheme:dark;
-}
-
-/* ── AMBER — KiyViz scheme #3 (candlelit mono) ── */
+/* ── AMBER — warm / candlelit (default) ── */
 html[data-scheme="amber"][data-mode="light"] {
   --paper:#f4e9c8; --paper-rgb:244,233,200; --paper-raised:#faf1d6; --paper-inset:#ebddb2;
   --ink:#3a2708; --muted:#7d5416; --faint:#a88530;
@@ -117,101 +94,14 @@ html[data-scheme="green"][data-mode="oled"] {
   --hl-bg:#183010; --hl-fg:#a4d67a; color-scheme:dark;
 }
 
-/* ── OLED — pure-black battery-saver scheme, mode-agnostic ── */
-/* Background stays #000000 regardless of light/dark/oled mode toggle.
-   Foreground colors keep the CSYA-A accent family for brand continuity
-   but brightened for legibility against true black. */
-html[data-scheme="oled"] {
-  --paper:#000000; --paper-rgb:0,0,0; --paper-raised:#050505; --paper-inset:#000000;
-  --ink:#e8e8e8; --muted:#a0a0a0; --faint:#555555;
-  --accent:#ff7a96; --accent-deco:#ff9ab0;
-  --accent-2:#ff8866; --accent-2-deco:#ffa884;
-  --rule:#e8e8e8; --glow:rgba(255,122,150,0.12); --accent-2-glow:rgba(255,136,102,0.10);
-  --hl-bg:#4a1f2a; --hl-fg:#ff7a96; color-scheme:dark;
-}
-
-/* ─────────────────────────────────────────────────────────
-   CSYA — Con Sabor y Amor — three architectural palettes
-   (Mexican modernist: Barragan, Legorreta, PRODUCTORA MX)
-   ───────────────────────────────────────────────────────── */
-
-/* ── CSYA-A · BARRAGAN — pink walls, cream, terracotta, sage ── */
-html[data-scheme="csya-a"][data-mode="light"] {
-  --paper:#f7eee3; --paper-rgb:247,238,227; --paper-raised:#fef5ea; --paper-inset:#ecdfcb;
-  --ink:#241712; --muted:#5a4a3e; --faint:#8a7565;
-  --accent:#e8859f; --accent-deco:#d56582; --accent-2:#c44d34; --accent-2-deco:#7a955a;
-  --rule:#241712; --glow:rgba(232,133,159,0.16); --accent-2-glow:rgba(196,77,52,0.10);
-  --hl-bg:#e8859f; --hl-fg:#241712; color-scheme:light;
-}
-html[data-scheme="csya-a"][data-mode="dark"] {
-  --paper:#1e1310; --paper-rgb:30,19,16; --paper-raised:#281a16; --paper-inset:#150c0a;
-  --ink:#f0d4c8; --muted:#b08878; --faint:#7a5848;
-  --accent:#ec97ad; --accent-deco:#ec97ad; --accent-2:#e07050; --accent-2-deco:#a4c47e;
-  --rule:#f0d4c8; --glow:rgba(236,151,173,0.16); --accent-2-glow:rgba(224,112,80,0.11);
-  --hl-bg:#5a2030; --hl-fg:#f0d4c8; color-scheme:dark;
-}
-html[data-scheme="csya-a"][data-mode="oled"] {
-  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#0a0504; --paper-inset:#000;
-  --ink:#d6b8aa; --muted:#7a5848; --faint:#4a342a;
-  --accent:#e8859f; --accent-deco:#e8859f; --accent-2:#d96850; --accent-2-deco:#94b06e;
-  --rule:#d6b8aa; --glow:rgba(232,133,159,0.11); --accent-2-glow:rgba(217,104,80,0.08);
-  --hl-bg:#3a1520; --hl-fg:#e8859f; color-scheme:dark;
-}
-
-/* ── CSYA-B · LEGORRETA — saturated blocks: red, yellow, cobalt ── */
-html[data-scheme="csya-b"][data-mode="light"] {
-  --paper:#f0e5d4; --paper-rgb:240,229,212; --paper-raised:#faefdd; --paper-inset:#e2d6c0;
-  --ink:#2b1d18; --muted:#6b5340; --faint:#a08562;
-  --accent:#d23a3a; --accent-deco:#a82828; --accent-2:#f0c14b; --accent-2-deco:#4a6890;
-  --rule:#2b1d18; --glow:rgba(210,58,58,0.13); --accent-2-glow:rgba(240,193,75,0.13);
-  --hl-bg:#d23a3a; --hl-fg:#faefdd; color-scheme:light;
-}
-html[data-scheme="csya-b"][data-mode="dark"] {
-  --paper:#16110d; --paper-rgb:22,17,13; --paper-raised:#1f1812; --paper-inset:#100b07;
-  --ink:#f0d8b8; --muted:#a88860; --faint:#6a5238;
-  --accent:#e85050; --accent-deco:#e85050; --accent-2:#f5d070; --accent-2-deco:#7090b8;
-  --rule:#f0d8b8; --glow:rgba(232,80,80,0.15); --accent-2-glow:rgba(245,208,112,0.13);
-  --hl-bg:#5a1c1c; --hl-fg:#f0d8b8; color-scheme:dark;
-}
-html[data-scheme="csya-b"][data-mode="oled"] {
-  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#080604; --paper-inset:#000;
-  --ink:#d4b890; --muted:#7a5e3a; --faint:#4a3820;
-  --accent:#d84040; --accent-deco:#d84040; --accent-2:#e8c060; --accent-2-deco:#6080a8;
-  --rule:#d4b890; --glow:rgba(216,64,64,0.10); --accent-2-glow:rgba(232,192,96,0.09);
-  --hl-bg:#3a1010; --hl-fg:#d84040; color-scheme:dark;
-}
-
-/* ── CSYA-C · PRODUCTORA — concrete + orange brick + moss ── */
-html[data-scheme="csya-c"][data-mode="light"] {
-  --paper:#e8e3da; --paper-rgb:232,227,218; --paper-raised:#f2ede4; --paper-inset:#dad4c8;
-  --ink:#1a1a1a; --muted:#555050; --faint:#888080;
-  --accent:#d96b3a; --accent-deco:#b85528; --accent-2:#6c8b6c; --accent-2-deco:#b8a08a;
-  --rule:#1a1a1a; --glow:rgba(217,107,58,0.13); --accent-2-glow:rgba(108,139,108,0.11);
-  --hl-bg:#d96b3a; --hl-fg:#f2ede4; color-scheme:light;
-}
-html[data-scheme="csya-c"][data-mode="dark"] {
-  --paper:#161513; --paper-rgb:22,21,19; --paper-raised:#1e1c1a; --paper-inset:#0f0e0c;
-  --ink:#d8d2c4; --muted:#8a8478; --faint:#5a544a;
-  --accent:#e88560; --accent-deco:#e88560; --accent-2:#88ac88; --accent-2-deco:#c4b098;
-  --rule:#d8d2c4; --glow:rgba(232,133,96,0.14); --accent-2-glow:rgba(136,172,136,0.12);
-  --hl-bg:#5a3018; --hl-fg:#d8d2c4; color-scheme:dark;
-}
-html[data-scheme="csya-c"][data-mode="oled"] {
-  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#070605; --paper-inset:#000;
-  --ink:#beb8ac; --muted:#6a655a; --faint:#3a3630;
-  --accent:#d97850; --accent-deco:#d97850; --accent-2:#7a9878; --accent-2-deco:#a89880;
-  --rule:#beb8ac; --glow:rgba(217,120,80,0.10); --accent-2-glow:rgba(122,152,120,0.08);
-  --hl-bg:#3a1f10; --hl-fg:#d97850; color-scheme:dark;
-}
-
-/* System dark-mode fallback when no scheme is set */
+/* System dark-mode fallback when no scheme is set — uses amber dark palette */
 @media (prefers-color-scheme: dark) {
   html:not([data-scheme]) {
-    --paper:#1e1310; --paper-rgb:30,19,16; --paper-raised:#281a16; --paper-inset:#150c0a;
-    --ink:#f0d4c8; --muted:#b08878; --faint:#7a5848;
-    --accent:#ec97ad; --accent-deco:#ec97ad; --accent-2:#e07050; --accent-2-deco:#a4c47e;
-    --rule:#f0d4c8; --glow:rgba(236,151,173,0.16); --accent-2-glow:rgba(224,112,80,0.11);
-    --hl-bg:#5a2030; --hl-fg:#f0d4c8; color-scheme:dark;
+    --paper:#1a0f03; --paper-rgb:26,15,3; --paper-raised:#231509; --paper-inset:#110801;
+    --ink:#e6a540; --muted:#b4801f; --faint:#6a4a15;
+    --accent:#f4c870; --accent-deco:#f4c870; --accent-2:#c5b87a; --accent-2-deco:#c5b87a;
+    --rule:#e6a540; --glow:rgba(230,165,64,0.14); --accent-2-glow:rgba(197,184,122,0.10);
+    --hl-bg:#4b3108; --hl-fg:#f4c870; color-scheme:dark;
   }
 }
 

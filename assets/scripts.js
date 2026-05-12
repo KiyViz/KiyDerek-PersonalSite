@@ -22,10 +22,10 @@
   const SCHEME_KEY = "dk-scheme";
   const MODE_KEY   = "dk-mode";
   const LANG_KEY   = "dk-lang-view";
-  const VALID_SCHEMES = ["amber", "green", "stone"];
+  const VALID_SCHEMES = ["earth", "air", "water", "fire"];
   const VALID_MODES   = ["light", "dark", "oled"];
   const VALID_LANGS   = ["all", "en", "es"];
-  const DEFAULT_SCHEME = "amber";
+  const DEFAULT_SCHEME = "earth";
 
   const schemeButtons = document.querySelectorAll(".scheme-toggle button[data-set-scheme]");
   const schemeSelect  = document.querySelector("[data-scheme-select]");

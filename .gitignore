@@ -1,0 +1,21 @@
+# Claude Code session/plan state — user-specific
+.claude/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor swap files
+*.swp
+*~
+.vscode/
+.idea/
+
+# Python (from _stamp.py)
+__pycache__/
+*.pyc
+
+# Local environment
+.env
+.env.local

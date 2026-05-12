@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<!--
+  derekkiy.com · case-study template
+  Stamped by ./_stamp.py for each project in PROJECTS.
+  Tokens: calchamber Border Consumption Tax Map Mapa del Impuesto al Consumo Fronterizo Single-graphic op-ed map of U.S.–Mexico border consumption tax rates. Mapa editorial de un solo gráfico sobre las tasas de impuestos al consumo en la frontera EE. UU.–México.
+          A single op-ed map that answered a two-country tariff question in five seconds, built in QGIS from INEGI and Natural Earth data on a tight production window. Un mapa editorial que respondió una pregunta arancelaria binacional en cinco segundos, construido en QGIS con datos de INEGI y Natural Earth bajo un plazo ajustado.     <div class="case-specs-row">
+      <dt><span lang="en">scope</span><span lang="es">alcance</span></dt>
+      <dd><span lang="en">Single op-ed graphic, tight production window</span><span lang="es">Un gráfico editorial, plazo ajustado</span></dd>
+    </div>
+    <div class="case-specs-row">
+      <dt><span lang="en">service</span><span lang="es">servicio</span></dt>
+      <dd><span lang="en">Cartography, editorial design</span><span lang="es">Cartografía, diseño editorial</span></dd>
+    </div>
+    <div class="case-specs-row">
+      <dt><span lang="en">deliverables</span><span lang="es">entregables</span></dt>
+      <dd><span lang="en">Op-ed map + comparison sub-graphic, print-ready, published in CalChamber Alert Vol 51 No 9</span><span lang="es">Mapa editorial + sub-gráfico comparativo, listo para imprenta, publicado en CalChamber Alert Vol 51 No 9</span></dd>
+    </div>
+    <div class="case-specs-row">
+      <dt><span lang="en">timeline</span><span lang="es">fechas</span></dt>
+      <dd><span lang="en">March 2025</span><span lang="es">Marzo de 2025</span></dd>
+    </div>     <li>cartography</li>
+    <li>editorial</li>
+    <li>policy</li>
+          ../assets/img/work/calchamber-border-tax.webp Newspaper mockup showing the Border Consumption Tax Map published in the CalChamber Alert. 1200 1200
+              <div lang="en" class="case-body-lang">
+<h2>The ask</h2>
+<p>The CalChamber Alert<sup class="fn-ref"><a href="#fn-1" id="fnref-1">[1]</a></sup> was running an op-ed in Volume 51 Number 9 (March 28, 2025) about proposed reciprocal tariffs along the U.S.–Mexico border. The op-ed's core argument: imposing new tariffs would distort an existing equilibrium. U.S. state sales taxes and Mexican <strong>IVA</strong><sup class="fn-ref"><a href="#fn-2" id="fnref-2">[2]</a></sup> rates are already roughly comparable in the border-zone municipalities on both sides.</p>
+<p>They needed a single graphic that would make that equivalence visible in <strong>five seconds</strong>, on newsprint, inside the column width the op-ed had reserved.</p>
+<h2>The approach</h2>
+<p>A single-frame thematic map is a rare thing in policy publishing. Usually a chart does the work. Here, the argument was geographic — <em>where</em> the tax rates matched mattered more than <em>how much</em> they matched — so a county-level choropleth was the right shape of answer.</p>
+<p>The production constraint was the interesting part. A two-country border map needs administrative boundaries from two countries' statistics offices, and in early 2025 there was a catch: Mexico created a new municipality, San Felipe, in 2022. Natural Earth's global boundary file didn't reflect the change yet. Using the old file would have drawn the map wrong on the Mexican side, in print, in a newspaper the CalChamber readership actually reads. That's not an acceptable failure mode for a policy publication.</p>
+<p>The fix was to substitute <strong>INEGI</strong>'s <em>Marco Geoestadístico 2024</em><sup class="fn-ref"><a href="#fn-3" id="fnref-3">[3]</a></sup> for the Mexican half of the map. INEGI's file is the canonical current-year administrative boundary dataset for Mexico, and the 2024 release is the first one that reflects the San Felipe creation.</p>
+<h2>Process</h2>
+<ol>
+<li><strong>Source U.S. boundaries</strong> from Natural Earth's <code>ne_10m_admin_2_counties</code> for the county-level outlines on the California, Arizona, New Mexico, and Texas sides.</li>
+<li><strong>Source Mexican boundaries</strong> from INEGI's <em>Marco Geoestadístico 2024</em> — the only currently-accurate file that reflects the 2022 municipal changes.</li>
+<li><strong>Join tax-rate data</strong> from the Tax Foundation's <em>State and Local Sales Tax Rates, 2024</em> for the U.S. side and <strong>SAT</strong><sup class="fn-ref"><a href="#fn-4" id="fnref-4">[4]</a></sup>'s published border-zone IVA list for the Mexican side (which includes the reduced 8% border-zone rate).</li>
+<li><strong>Build the map in QGIS</strong>, starting from the combined boundary layer and applying a choropleth fill keyed to the joined tax-rate data.</li>
+<li><strong>Finish the styling in Adobe Illustrator</strong> — QGIS handles cartography, Illustrator handles the final type, legend, and publication fit.</li>
+<li><strong>Add a secondary sub-graphic</strong> inside the space the op-ed had allocated — a small quantitative comparison of tax rates in the U.S.–Mexico border region to anchor the map's argument with numbers.</li>
+</ol>
+<figure class="case-fig">
+  <img src="../assets/img/work/calchamber-border-tax.webp" alt="Final published op-ed map showing U.S.–Mexico border-zone consumption tax rates by county and municipality" loading="lazy" decoding="async">
+  <figcaption>Final published op-ed map. CalChamber Alert Vol 51 No 9, March 28 2025.</figcaption>
+</figure>
+<h2>Craft notes</h2>
+<ul>
+<li><strong>boundaries</strong> — Natural Earth Admin 2 for the U.S. side; INEGI <em>Marco Geoestadístico 2024</em> for the Mexican side. The 2024 INEGI release is the only currently-accurate file that reflects the 2022 creation of San Felipe municipality.</li>
+<li><strong>projection</strong> — Standard Web Mercator. The region is small enough relative to the earth that distortion is negligible at this scale.</li>
+<li><strong>tax data</strong> — U.S. rates from Tax Foundation's 2024 state and local sales tax report; Mexican IVA rates from SAT's published border-zone eligibility list (the reduced 8% rate applies only to specific border municipalities).</li>
+<li><strong>hybrid workflow</strong> — QGIS for the cartography, Illustrator for the final styling. Hybrid workflows beat single-tool purity when the deadline is short and the publication has specific column-width constraints.</li>
+</ul>
+<h2>Sources & credits</h2>
+<ul>
+<li><strong>Publication</strong> — CalChamber Alert, Vol 51 No 9, March 28, 2025</li>
+<li><strong>Administrative boundaries (U.S.)</strong> — <a href="https://www.naturalearthdata.com/">Natural Earth 1:10m Admin 2 Counties</a></li>
+<li><strong>Administrative boundaries (Mexico)</strong> — INEGI, <em>Marco Geoestadístico 2024</em></li>
+<li><strong>U.S. tax rates</strong> — Tax Foundation, <em>State and Local Sales Tax Rates, 2024</em></li>
+<li><strong>Mexican IVA rates</strong> — SAT (Servicio de Administración Tributaria), border-zone eligibility list</li>
+</ul>
+<section class="case-footnotes">
+<h2>Footnotes</h2>
+<ol class="case-footnotes-list">
+<li id="fn-1">CalChamber Alert — the weekly policy publication of the California Chamber of Commerce. Circulates to California business leaders, legislators, and policy staff. <a href="#fnref-1" aria-label="back to text">↩</a></li>
+<li id="fn-2">IVA — <em>Impuesto al Valor Agregado</em>, Mexico's value-added consumption tax. Functionally comparable to a U.S. state sales tax for everyday consumer goods. The federal rate is 16%; specific border-zone municipalities qualify for a reduced 8% rate. <a href="#fnref-2" aria-label="back to text">↩</a></li>
+<li id="fn-3">Marco Geoestadístico — INEGI's canonical administrative-boundary file for Mexico, updated periodically as municipalities change. The 2024 release was the first to reflect the creation of San Felipe as a new municipality in 2022; older files still drew the old boundary. <a href="#fnref-3" aria-label="back to text">↩</a></li>
+<li id="fn-4">SAT — <em>Servicio de Administración Tributaria</em>, Mexico's federal tax authority. Equivalent to the IRS in the U.S. Publishes the annual list of border-zone municipalities eligible for the reduced 8% IVA rate. <a href="#fnref-4" aria-label="back to text">↩</a></li>
+</ol>
+</section>
+    </div>
+    <div lang="es" class="case-body-lang">
+<h2>El encargo</h2>
+<p>CalChamber Alert<sup class="fn-ref"><a href="#fn-1" id="fnref-1">[1]</a></sup> publicaba un artículo de opinión en el Volumen 51 Número 9 (28 de marzo de 2025) sobre propuestas de aranceles recíprocos en la frontera EE. UU.–México. El argumento central del artículo: imponer nuevos aranceles distorsionaría un equilibrio existente. Los impuestos al consumo en EE. UU. y el <strong>IVA</strong><sup class="fn-ref"><a href="#fn-2" id="fnref-2">[2]</a></sup> mexicano ya son aproximadamente comparables en los municipios fronterizos de ambos lados.</p>
+<p>Necesitaban un gráfico único que volviera visible esa equivalencia en <strong>cinco segundos</strong>, en papel periódico, dentro del ancho de columna que el artículo tenía reservado.</p>
+<h2>El enfoque</h2>
+<p>Un mapa temático de un solo cuadro es algo raro en publicaciones de política pública. Normalmente una gráfica de barras hace el trabajo. Aquí, el argumento era geográfico — <em>dónde</em> coincidían las tasas importaba más que <em>cuánto</em> coincidían — así que un coroplético a nivel de condado y municipio era la forma correcta de respuesta.</p>
+<p>La restricción de producción fue lo interesante. Un mapa fronterizo binacional necesita límites administrativos de dos oficinas de estadística distintas, y a principios de 2025 había una trampa: México creó un nuevo municipio, San Felipe, en 2022. El archivo de límites globales de Natural Earth todavía no reflejaba el cambio. Usar el archivo viejo habría dibujado el mapa mal en el lado mexicano, en imprenta, en una publicación que los lectores de CalChamber realmente leen. Ese no es un modo de fallo aceptable para una publicación de política.</p>
+<p>La solución fue sustituir el <em>Marco Geoestadístico 2024</em> de <strong>INEGI</strong><sup class="fn-ref"><a href="#fn-3" id="fnref-3">[3]</a></sup> por la mitad mexicana del mapa. El archivo de INEGI es el conjunto de límites administrativos canónico y actual para México, y la versión 2024 es la primera que refleja la creación de San Felipe.</p>
+<h2>El proceso</h2>
+<ol>
+<li><strong>Límites de EE. UU.</strong> desde Natural Earth <code>ne_10m_admin_2_counties</code> para los condados de California, Arizona, Nuevo México y Texas.</li>
+<li><strong>Límites de México</strong> desde el <em>Marco Geoestadístico 2024</em> de INEGI — el único archivo actualmente correcto que refleja los cambios municipales de 2022.</li>
+<li><strong>Datos de tasas</strong> desde el reporte <em>State and Local Sales Tax Rates, 2024</em> de Tax Foundation para EE. UU. y la lista de zona fronteriza publicada por <strong>SAT</strong><sup class="fn-ref"><a href="#fn-4" id="fnref-4">[4]</a></sup> para el IVA mexicano (incluida la tasa reducida del 8% para municipios fronterizos).</li>
+<li><strong>Construcción del mapa en QGIS</strong>, aplicando un relleno coroplético sobre la capa de límites combinada.</li>
+<li><strong>Terminado en Adobe Illustrator</strong> — QGIS maneja la cartografía, Illustrator maneja la tipografía final, la leyenda y el ajuste a la publicación.</li>
+<li><strong>Sub-gráfico secundario</strong> incluido en el espacio asignado — una comparación cuantitativa de las tasas en la región fronteriza que ancla el argumento del mapa con números.</li>
+</ol>
+<figure class="case-fig">
+  <img src="../assets/img/work/calchamber-border-tax.webp" alt="Mapa final publicado del artículo de opinión con las tasas del impuesto al consumo en la frontera EE. UU.–México por condado y municipio" loading="lazy" decoding="async">
+  <figcaption>Mapa final publicado. CalChamber Alert Vol 51 No 9, 28 de marzo de 2025.</figcaption>
+</figure>
+<h2>Detalles de ejecución</h2>
+<ul>
+<li><strong>límites</strong> — Natural Earth Admin 2 para el lado estadounidense; INEGI <em>Marco Geoestadístico 2024</em> para el lado mexicano. La versión 2024 del archivo de INEGI es la única actualmente correcta que refleja la creación del municipio de San Felipe en 2022.</li>
+<li><strong>proyección</strong> — Web Mercator estándar. La región es suficientemente pequeña para que la distorsión sea despreciable a esta escala.</li>
+<li><strong>datos fiscales</strong> — Tasas de EE. UU. desde el reporte de impuestos de Tax Foundation 2024; IVA mexicano desde la lista oficial de zona fronteriza publicada por SAT (la tasa reducida del 8% aplica solo a municipios fronterizos específicos).</li>
+<li><strong>flujo híbrido</strong> — QGIS para la cartografía, Illustrator para el acabado. Los flujos híbridos ganan a la pureza de una sola herramienta cuando el plazo es corto y la publicación tiene restricciones específicas de columna.</li>
+</ul>
+<h2>Fuentes y créditos</h2>
+<ul>
+<li><strong>Publicación</strong> — CalChamber Alert, Vol 51 No 9, 28 de marzo de 2025</li>
+<li><strong>Límites administrativos (EE. UU.)</strong> — <a href="https://www.naturalearthdata.com/">Natural Earth 1:10m Admin 2 Counties</a></li>
+<li><strong>Límites administrativos (México)</strong> — INEGI, <em>Marco Geoestadístico 2024</em></li>
+<li><strong>Tasas de EE. UU.</strong> — Tax Foundation, <em>State and Local Sales Tax Rates, 2024</em></li>
+<li><strong>Tasas del IVA mexicano</strong> — SAT (Servicio de Administración Tributaria), lista de zona fronteriza</li>
+</ul>
+<section class="case-footnotes">
+<h2>Footnotes</h2>
+<ol class="case-footnotes-list">
+<li id="fn-1">CalChamber Alert — la publicación semanal de política pública de la California Chamber of Commerce. Circula entre líderes empresariales, legisladores y personal de política pública en California. <a href="#fnref-1" aria-label="back to text">↩</a></li>
+<li id="fn-2">IVA — <em>Impuesto al Valor Agregado</em>, el impuesto al consumo federal de México. Comparable al impuesto sobre ventas estatal en EE. UU. para bienes de consumo diarios. La tasa federal es 16%; municipios específicos de la zona fronteriza califican para una tasa reducida del 8%. <a href="#fnref-2" aria-label="back to text">↩</a></li>
+<li id="fn-3">Marco Geoestadístico — el archivo canónico de límites administrativos de INEGI para México, actualizado periódicamente conforme cambian los municipios. La versión 2024 fue la primera en reflejar la creación de San Felipe como nuevo municipio en 2022; los archivos anteriores aún dibujaban el límite antiguo. <a href="#fnref-3" aria-label="back to text">↩</a></li>
+<li id="fn-4">SAT — <em>Servicio de Administración Tributaria</em>, la autoridad fiscal federal de México. Equivalente al IRS en EE. UU. Publica anualmente la lista de municipios fronterizos elegibles para la tasa reducida del 8% del IVA. <a href="#fnref-4" aria-label="back to text">↩</a></li>
+</ol>
+</section>
+    </div> nokings.html 4th Amendment Campaign sis.html Space Impact Study
+-->
+<html lang="en" data-scheme="csya-a" data-mode="light" data-lang-view="all">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Border Consumption Tax Map · Derek Kiy</title>
+<meta name="description" content="Single-graphic op-ed map of U.S.–Mexico border consumption tax rates. — case study by Derek Kiy.">
+<meta name="author" content="Derek Kiy">
+<meta name="theme-color" content="#f7eee3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1e1310" media="(prefers-color-scheme: dark)">
+
+<link rel="alternate" hreflang="en" href="https://derekkiy.com/work/calchamber.html">
+<link rel="alternate" hreflang="es" href="https://derekkiy.com/work/calchamber.html">
+<link rel="alternate" hreflang="x-default" href="https://derekkiy.com/work/calchamber.html">
+
+<meta property="og:title" content="Border Consumption Tax Map · Derek Kiy">
+<meta property="og:description" content="Single-graphic op-ed map of U.S.–Mexico border consumption tax rates.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://derekkiy.com/work/calchamber.html">
+<meta property="og:image" content="https://derekkiy.com/assets/img/og/derekkiy-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_US">
+<meta name="twitter:card" content="summary_large_image">
+
+<script>
+(function () {
+  var H = document.documentElement;
+  var VS = /^(stone|earth|amber|green|csya-a|csya-b|csya-c)$/;
+  var VM = /^(light|dark|oled)$/;
+  var VL = /^(all|en|es)$/;
+  function q(name){try{var m=location.search.match(new RegExp("[?&]"+name+"=([^&#]+)"));return m?decodeURIComponent(m[1]):null;}catch(e){return null;}}
+  function ls(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function save(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+  try {
+    var qs=q("scheme"),qm=q("mode"),ql=q("lang");
+    var s=qs||ls("dk-scheme"),m=qm||ls("dk-mode"),l=ql||ls("dk-lang-view");
+    if(s&&VS.test(s)){H.setAttribute("data-scheme",s);save("dk-scheme",s);}
+    if(m&&VM.test(m)){H.setAttribute("data-mode",m);save("dk-mode",m);}
+    else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)H.setAttribute("data-mode","dark");
+    if(l&&VL.test(l)){H.setAttribute("data-lang-view",l);save("dk-lang-view",l);}
+    if(qs||qm||ql){try{var u=new URL(location.href);u.searchParams.delete("scheme");u.searchParams.delete("mode");u.searchParams.delete("lang");history.replaceState(null,"",u.pathname+(u.search||"")+(u.hash||""));}catch(e){}}
+  } catch(e){}
+})();
+</script>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f7eee3'/%3E%3Cpath fill='%23241712' d='M14 12h18c10 0 18 9 18 20s-8 20-18 20H14V12zm10 10v20h6c5 0 9-4 9-10s-4-10-9-10h-6z'/%3E%3Crect x='14' y='56' width='36' height='4' fill='%23e8859f'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../assets/styles.css?v=0.1">
+<script src="../assets/content.js?v=0.1"></script>
+</head>
+<body class="page-work page-case-study">
+
+<a href="#main" class="skip">Skip to content</a>
+<div class="sr-only" id="theme-announcer" role="status" aria-live="polite"></div>
+
+<header class="site-header">
+  <a href="../index.html" class="wordmark" aria-label="Derek Kiy — home">
+    <span class="wm-glyph">Derek&nbsp;Kiy</span>
+    <span class="wm-suffix">designer</span>
+  </a>
+  <div class="header-controls">
+    <nav class="site-nav" aria-label="Site sections">
+      <a href="../index.html#future"><span class="nav-num">01</span><span lang="en">future</span><span lang="es" aria-hidden="true">futuro</span></a>
+      <a href="../index.html#present"><span class="nav-num">02</span><span lang="en">present</span><span lang="es" aria-hidden="true">presente</span></a>
+      <a href="index.html" aria-current="page"><span class="nav-num">03</span><span lang="en">past</span><span lang="es" aria-hidden="true">pasado</span></a>
+      <a href="../about/index.html"><span lang="en">about</span><span lang="es" aria-hidden="true">sobre</span></a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language view">
+      <button type="button" data-set-lang="all" aria-pressed="true">all</button>
+      <button type="button" data-set-lang="en"  aria-pressed="false">en</button>
+      <button type="button" data-set-lang="es"  aria-pressed="false">es</button>
+    </div>
+    <div class="scheme-toggle" role="group" aria-label="Color scheme">
+      <button type="button" data-set-scheme="csya-a" aria-pressed="true">csya·a</button>
+      <button type="button" data-set-scheme="csya-b" aria-pressed="false">csya·b</button>
+      <button type="button" data-set-scheme="csya-c" aria-pressed="false">csya·c</button>
+      <button type="button" data-set-scheme="stone"  aria-pressed="false">stone</button>
+      <button type="button" data-set-scheme="earth"  aria-pressed="false">earth</button>
+      <button type="button" data-set-scheme="amber"  aria-pressed="false">amber</button>
+      <button type="button" data-set-scheme="green"  aria-pressed="false">green</button>
+    </div>
+    <div class="mode-toggle" role="group" aria-label="Brightness mode">
+      <button type="button" data-set-mode="light" aria-pressed="true">light</button>
+      <button type="button" data-set-mode="dark"  aria-pressed="false">dark</button>
+      <button type="button" data-set-mode="oled"  aria-pressed="false">oled</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="case-study" data-slug="calchamber">
+
+  <nav class="case-crumbs" aria-label="Breadcrumb">
+    <a href="../index.html"><span class="case-crumb-sigil">~/</span>derekkiy</a>
+    <span class="case-crumb-sep" aria-hidden="true">/</span>
+    <a href="index.html">work</a>
+    <span class="case-crumb-sep" aria-hidden="true">/</span>
+    <span aria-current="page" class="case-crumb-current">calchamber.html</span>
+  </nav>
+
+  <h1 class="case-title">
+    <span lang="en">Border Consumption Tax Map</span>
+    <span lang="es">Mapa del Impuesto al Consumo Fronterizo</span>
+  </h1>
+
+  <p class="case-subtitle">
+    <span lang="en">Single-graphic op-ed map of U.S.–Mexico border consumption tax rates.</span>
+    <span lang="es">Mapa editorial de un solo gráfico sobre las tasas de impuestos al consumo en la frontera EE. UU.–México.</span>
+  </p>
+
+  <blockquote class="case-bluf" aria-label="Bottom line">
+    <p lang="en">A single op-ed map that answered a two-country tariff question in five seconds, built in QGIS from INEGI and Natural Earth data on a tight production window.</p>
+    <p lang="es">Un mapa editorial que respondió una pregunta arancelaria binacional en cinco segundos, construido en QGIS con datos de INEGI y Natural Earth bajo un plazo ajustado.</p>
+  </blockquote>
+
+  <dl class="case-specs" aria-label="Project specs">
+    <div class="case-specs-row">
+      <dt><span lang="en">scope</span><span lang="es">alcance</span></dt>
+      <dd><span lang="en">Single op-ed graphic, tight production window</span><span lang="es">Un gráfico editorial, plazo ajustado</span></dd>
+    </div>
+    <div class="case-specs-row">
+      <dt><span lang="en">service</span><span lang="es">servicio</span></dt>
+      <dd><span lang="en">Cartography, editorial design</span><span lang="es">Cartografía, diseño editorial</span></dd>
+    </div>
+    <div class="case-specs-row">
+      <dt><span lang="en">deliverables</span><span lang="es">entregables</span></dt>
+      <dd><span lang="en">Op-ed map + comparison sub-graphic, print-ready, published in CalChamber Alert Vol 51 No 9</span><span lang="es">Mapa editorial + sub-gráfico comparativo, listo para imprenta, publicado en CalChamber Alert Vol 51 No 9</span></dd>
+    </div>
+    <div class="case-specs-row">
+      <dt><span lang="en">timeline</span><span lang="es">fechas</span></dt>
+      <dd><span lang="en">March 2025</span><span lang="es">Marzo de 2025</span></dd>
+    </div>
+  </dl>
+
+  <ul class="case-tags" aria-label="Tags">
+    <li>cartography</li>
+    <li>editorial</li>
+    <li>policy</li>
+  </ul>
+
+  <figure class="case-hero">
+    <img src="../assets/img/work/calchamber-border-tax.webp" alt="Newspaper mockup showing the Border Consumption Tax Map published in the CalChamber Alert." width="1200" height="1200" loading="eager" decoding="async">
+  </figure>
+
+  <div class="case-body-wrap">
+    <div lang="en" class="case-body-lang">
+<h2>The ask</h2>
+<p>The CalChamber Alert<sup class="fn-ref"><a href="#fn-1" id="fnref-1">[1]</a></sup> was running an op-ed in Volume 51 Number 9 (March 28, 2025) about proposed reciprocal tariffs along the U.S.–Mexico border. The op-ed's core argument: imposing new tariffs would distort an existing equilibrium. U.S. state sales taxes and Mexican <strong>IVA</strong><sup class="fn-ref"><a href="#fn-2" id="fnref-2">[2]</a></sup> rates are already roughly comparable in the border-zone municipalities on both sides.</p>
+<p>They needed a single graphic that would make that equivalence visible in <strong>five seconds</strong>, on newsprint, inside the column width the op-ed had reserved.</p>
+<h2>The approach</h2>
+<p>A single-frame thematic map is a rare thing in policy publishing. Usually a chart does the work. Here, the argument was geographic — <em>where</em> the tax rates matched mattered more than <em>how much</em> they matched — so a county-level choropleth was the right shape of answer.</p>
+<p>The production constraint was the interesting part. A two-country border map needs administrative boundaries from two countries' statistics offices, and in early 2025 there was a catch: Mexico created a new municipality, San Felipe, in 2022. Natural Earth's global boundary file didn't reflect the change yet. Using the old file would have drawn the map wrong on the Mexican side, in print, in a newspaper the CalChamber readership actually reads. That's not an acceptable failure mode for a policy publication.</p>
+<p>The fix was to substitute <strong>INEGI</strong>'s <em>Marco Geoestadístico 2024</em><sup class="fn-ref"><a href="#fn-3" id="fnref-3">[3]</a></sup> for the Mexican half of the map. INEGI's file is the canonical current-year administrative boundary dataset for Mexico, and the 2024 release is the first one that reflects the San Felipe creation.</p>
+<h2>Process</h2>
+<ol>
+<li><strong>Source U.S. boundaries</strong> from Natural Earth's <code>ne_10m_admin_2_counties</code> for the county-level outlines on the California, Arizona, New Mexico, and Texas sides.</li>
+<li><strong>Source Mexican boundaries</strong> from INEGI's <em>Marco Geoestadístico 2024</em> — the only currently-accurate file that reflects the 2022 municipal changes.</li>
+<li><strong>Join tax-rate data</strong> from the Tax Foundation's <em>State and Local Sales Tax Rates, 2024</em> for the U.S. side and <strong>SAT</strong><sup class="fn-ref"><a href="#fn-4" id="fnref-4">[4]</a></sup>'s published border-zone IVA list for the Mexican side (which includes the reduced 8% border-zone rate).</li>
+<li><strong>Build the map in QGIS</strong>, starting from the combined boundary layer and applying a choropleth fill keyed to the joined tax-rate data.</li>
+<li><strong>Finish the styling in Adobe Illustrator</strong> — QGIS handles cartography, Illustrator handles the final type, legend, and publication fit.</li>
+<li><strong>Add a secondary sub-graphic</strong> inside the space the op-ed had allocated — a small quantitative comparison of tax rates in the U.S.–Mexico border region to anchor the map's argument with numbers.</li>
+</ol>
+<figure class="case-fig">
+  <img src="../assets/img/work/calchamber-border-tax.webp" alt="Final published op-ed map showing U.S.–Mexico border-zone consumption tax rates by county and municipality" loading="lazy" decoding="async">
+  <figcaption>Final published op-ed map. CalChamber Alert Vol 51 No 9, March 28 2025.</figcaption>
+</figure>
+<h2>Craft notes</h2>
+<ul>
+<li><strong>boundaries</strong> — Natural Earth Admin 2 for the U.S. side; INEGI <em>Marco Geoestadístico 2024</em> for the Mexican side. The 2024 INEGI release is the only currently-accurate file that reflects the 2022 creation of San Felipe municipality.</li>
+<li><strong>projection</strong> — Standard Web Mercator. The region is small enough relative to the earth that distortion is negligible at this scale.</li>
+<li><strong>tax data</strong> — U.S. rates from Tax Foundation's 2024 state and local sales tax report; Mexican IVA rates from SAT's published border-zone eligibility list (the reduced 8% rate applies only to specific border municipalities).</li>
+<li><strong>hybrid workflow</strong> — QGIS for the cartography, Illustrator for the final styling. Hybrid workflows beat single-tool purity when the deadline is short and the publication has specific column-width constraints.</li>
+</ul>
+<h2>Sources & credits</h2>
+<ul>
+<li><strong>Publication</strong> — CalChamber Alert, Vol 51 No 9, March 28, 2025</li>
+<li><strong>Administrative boundaries (U.S.)</strong> — <a href="https://www.naturalearthdata.com/">Natural Earth 1:10m Admin 2 Counties</a></li>
+<li><strong>Administrative boundaries (Mexico)</strong> — INEGI, <em>Marco Geoestadístico 2024</em></li>
+<li><strong>U.S. tax rates</strong> — Tax Foundation, <em>State and Local Sales Tax Rates, 2024</em></li>
+<li><strong>Mexican IVA rates</strong> — SAT (Servicio de Administración Tributaria), border-zone eligibility list</li>
+</ul>
+<section class="case-footnotes">
+<h2>Footnotes</h2>
+<ol class="case-footnotes-list">
+<li id="fn-1">CalChamber Alert — the weekly policy publication of the California Chamber of Commerce. Circulates to California business leaders, legislators, and policy staff. <a href="#fnref-1" aria-label="back to text">↩</a></li>
+<li id="fn-2">IVA — <em>Impuesto al Valor Agregado</em>, Mexico's value-added consumption tax. Functionally comparable to a U.S. state sales tax for everyday consumer goods. The federal rate is 16%; specific border-zone municipalities qualify for a reduced 8% rate. <a href="#fnref-2" aria-label="back to text">↩</a></li>
+<li id="fn-3">Marco Geoestadístico — INEGI's canonical administrative-boundary file for Mexico, updated periodically as municipalities change. The 2024 release was the first to reflect the creation of San Felipe as a new municipality in 2022; older files still drew the old boundary. <a href="#fnref-3" aria-label="back to text">↩</a></li>
+<li id="fn-4">SAT — <em>Servicio de Administración Tributaria</em>, Mexico's federal tax authority. Equivalent to the IRS in the U.S. Publishes the annual list of border-zone municipalities eligible for the reduced 8% IVA rate. <a href="#fnref-4" aria-label="back to text">↩</a></li>
+</ol>
+</section>
+    </div>
+    <div lang="es" class="case-body-lang">
+<h2>El encargo</h2>
+<p>CalChamber Alert<sup class="fn-ref"><a href="#fn-1" id="fnref-1">[1]</a></sup> publicaba un artículo de opinión en el Volumen 51 Número 9 (28 de marzo de 2025) sobre propuestas de aranceles recíprocos en la frontera EE. UU.–México. El argumento central del artículo: imponer nuevos aranceles distorsionaría un equilibrio existente. Los impuestos al consumo en EE. UU. y el <strong>IVA</strong><sup class="fn-ref"><a href="#fn-2" id="fnref-2">[2]</a></sup> mexicano ya son aproximadamente comparables en los municipios fronterizos de ambos lados.</p>
+<p>Necesitaban un gráfico único que volviera visible esa equivalencia en <strong>cinco segundos</strong>, en papel periódico, dentro del ancho de columna que el artículo tenía reservado.</p>
+<h2>El enfoque</h2>
+<p>Un mapa temático de un solo cuadro es algo raro en publicaciones de política pública. Normalmente una gráfica de barras hace el trabajo. Aquí, el argumento era geográfico — <em>dónde</em> coincidían las tasas importaba más que <em>cuánto</em> coincidían — así que un coroplético a nivel de condado y municipio era la forma correcta de respuesta.</p>
+<p>La restricción de producción fue lo interesante. Un mapa fronterizo binacional necesita límites administrativos de dos oficinas de estadística distintas, y a principios de 2025 había una trampa: México creó un nuevo municipio, San Felipe, en 2022. El archivo de límites globales de Natural Earth todavía no reflejaba el cambio. Usar el archivo viejo habría dibujado el mapa mal en el lado mexicano, en imprenta, en una publicación que los lectores de CalChamber realmente leen. Ese no es un modo de fallo aceptable para una publicación de política.</p>
+<p>La solución fue sustituir el <em>Marco Geoestadístico 2024</em> de <strong>INEGI</strong><sup class="fn-ref"><a href="#fn-3" id="fnref-3">[3]</a></sup> por la mitad mexicana del mapa. El archivo de INEGI es el conjunto de límites administrativos canónico y actual para México, y la versión 2024 es la primera que refleja la creación de San Felipe.</p>
+<h2>El proceso</h2>
+<ol>
+<li><strong>Límites de EE. UU.</strong> desde Natural Earth <code>ne_10m_admin_2_counties</code> para los condados de California, Arizona, Nuevo México y Texas.</li>
+<li><strong>Límites de México</strong> desde el <em>Marco Geoestadístico 2024</em> de INEGI — el único archivo actualmente correcto que refleja los cambios municipales de 2022.</li>
+<li><strong>Datos de tasas</strong> desde el reporte <em>State and Local Sales Tax Rates, 2024</em> de Tax Foundation para EE. UU. y la lista de zona fronteriza publicada por <strong>SAT</strong><sup class="fn-ref"><a href="#fn-4" id="fnref-4">[4]</a></sup> para el IVA mexicano (incluida la tasa reducida del 8% para municipios fronterizos).</li>
+<li><strong>Construcción del mapa en QGIS</strong>, aplicando un relleno coroplético sobre la capa de límites combinada.</li>
+<li><strong>Terminado en Adobe Illustrator</strong> — QGIS maneja la cartografía, Illustrator maneja la tipografía final, la leyenda y el ajuste a la publicación.</li>
+<li><strong>Sub-gráfico secundario</strong> incluido en el espacio asignado — una comparación cuantitativa de las tasas en la región fronteriza que ancla el argumento del mapa con números.</li>
+</ol>
+<figure class="case-fig">
+  <img src="../assets/img/work/calchamber-border-tax.webp" alt="Mapa final publicado del artículo de opinión con las tasas del impuesto al consumo en la frontera EE. UU.–México por condado y municipio" loading="lazy" decoding="async">
+  <figcaption>Mapa final publicado. CalChamber Alert Vol 51 No 9, 28 de marzo de 2025.</figcaption>
+</figure>
+<h2>Detalles de ejecución</h2>
+<ul>
+<li><strong>límites</strong> — Natural Earth Admin 2 para el lado estadounidense; INEGI <em>Marco Geoestadístico 2024</em> para el lado mexicano. La versión 2024 del archivo de INEGI es la única actualmente correcta que refleja la creación del municipio de San Felipe en 2022.</li>
+<li><strong>proyección</strong> — Web Mercator estándar. La región es suficientemente pequeña para que la distorsión sea despreciable a esta escala.</li>
+<li><strong>datos fiscales</strong> — Tasas de EE. UU. desde el reporte de impuestos de Tax Foundation 2024; IVA mexicano desde la lista oficial de zona fronteriza publicada por SAT (la tasa reducida del 8% aplica solo a municipios fronterizos específicos).</li>
+<li><strong>flujo híbrido</strong> — QGIS para la cartografía, Illustrator para el acabado. Los flujos híbridos ganan a la pureza de una sola herramienta cuando el plazo es corto y la publicación tiene restricciones específicas de columna.</li>
+</ul>
+<h2>Fuentes y créditos</h2>
+<ul>
+<li><strong>Publicación</strong> — CalChamber Alert, Vol 51 No 9, 28 de marzo de 2025</li>
+<li><strong>Límites administrativos (EE. UU.)</strong> — <a href="https://www.naturalearthdata.com/">Natural Earth 1:10m Admin 2 Counties</a></li>
+<li><strong>Límites administrativos (México)</strong> — INEGI, <em>Marco Geoestadístico 2024</em></li>
+<li><strong>Tasas de EE. UU.</strong> — Tax Foundation, <em>State and Local Sales Tax Rates, 2024</em></li>
+<li><strong>Tasas del IVA mexicano</strong> — SAT (Servicio de Administración Tributaria), lista de zona fronteriza</li>
+</ul>
+<section class="case-footnotes">
+<h2>Footnotes</h2>
+<ol class="case-footnotes-list">
+<li id="fn-1">CalChamber Alert — la publicación semanal de política pública de la California Chamber of Commerce. Circula entre líderes empresariales, legisladores y personal de política pública en California. <a href="#fnref-1" aria-label="back to text">↩</a></li>
+<li id="fn-2">IVA — <em>Impuesto al Valor Agregado</em>, el impuesto al consumo federal de México. Comparable al impuesto sobre ventas estatal en EE. UU. para bienes de consumo diarios. La tasa federal es 16%; municipios específicos de la zona fronteriza califican para una tasa reducida del 8%. <a href="#fnref-2" aria-label="back to text">↩</a></li>
+<li id="fn-3">Marco Geoestadístico — el archivo canónico de límites administrativos de INEGI para México, actualizado periódicamente conforme cambian los municipios. La versión 2024 fue la primera en reflejar la creación de San Felipe como nuevo municipio en 2022; los archivos anteriores aún dibujaban el límite antiguo. <a href="#fnref-3" aria-label="back to text">↩</a></li>
+<li id="fn-4">SAT — <em>Servicio de Administración Tributaria</em>, la autoridad fiscal federal de México. Equivalente al IRS en EE. UU. Publica anualmente la lista de municipios fronterizos elegibles para la tasa reducida del 8% del IVA. <a href="#fnref-4" aria-label="back to text">↩</a></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <nav class="case-nav" aria-label="Project navigation">
+    <a class="case-nav-prev" href="nokings.html">
+      <span class="case-nav-dir">&larr; prev</span>
+      <span class="case-nav-label">4th Amendment Campaign</span>
+    </a>
+    <a class="case-nav-index" href="index.html">
+      <span class="case-nav-dir">all work</span>
+      <span class="case-nav-label">obra completa</span>
+    </a>
+    <a class="case-nav-next" href="sis.html">
+      <span class="case-nav-dir">next &rarr;</span>
+      <span class="case-nav-label">Space Impact Study</span>
+    </a>
+  </nav>
+
+</main>
+
+<footer class="status-footer" role="contentinfo" aria-label="Contact status line">
+  <span class="status-sigil">~/dk/work/calchamber:</span>
+  <span class="status-item"><span class="status-label">mailto:</span><a href="mailto:derek@kiyviz.com">derek@kiyviz.com</a></span>
+  <span class="status-sep">·</span>
+  <span class="status-item"><span class="status-label">geo:</span>escondido · ca</span>
+  <span class="status-right">
+    <span data-status-clock>–– PT</span>
+    <span class="status-sep">·</span>
+    <span data-scheme-indicator>csya-a</span>
+    <span class="status-sep">/</span>
+    <span data-mode-indicator>light</span>
+  </span>
+</footer>
+
+<script src="../assets/scripts.js?v=0.1"></script>
+
+</body>
+</html>

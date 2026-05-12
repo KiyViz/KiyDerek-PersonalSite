@@ -427,6 +427,40 @@ html[data-lang-view="es"] [lang="en"] {
   border-left: none !important;
 }
 
+/* ═══ BILINGUAL — "all" view: EN/ES as stacked peer blocks ═══
+   In all-language mode, every bilingual pair stacks (display:block)
+   and both languages get a subtle hue lean toward their respective
+   accent. The eye parses them as paired but distinct, neither
+   subordinate — same size, same weight, sibling colors.
+
+   Scoped to <main> so header/footer/nav stay inline (their lang
+   spans are short one-word labels).
+   ═══════════════════════════════════════════════════════════ */
+
+html[data-lang-view="all"] main [lang="en"]:not(html),
+html[data-lang-view="all"] main [lang="es"]:not(html) {
+  display: block;
+}
+
+html[data-lang-view="all"] main [lang="en"]:not(html) {
+  color: color-mix(in oklab, var(--ink) 82%, var(--accent) 18%);
+}
+
+html[data-lang-view="all"] main [lang="es"]:not(html) {
+  color: color-mix(in oklab, var(--ink) 82%, var(--accent-2) 18%);
+  margin-top: 0.4em;
+}
+
+/* Don't tint lang spans nested inside links — they inherit link color
+   and are usually short single-word labels (e.g., the contact-row
+   "scope a project" → /services/ link). */
+html[data-lang-view="all"] main a [lang="en"]:not(html),
+html[data-lang-view="all"] main a [lang="es"]:not(html) {
+  color: inherit;
+  display: inline;
+  margin-top: 0;
+}
+
 /* ═══ A11Y ══════════════════════════════════════════════════ */
 
 .skip {
@@ -495,15 +529,7 @@ body.page-mrk1 main.mrk1 {
   max-width: 42ch;
   margin: 0;
 }
-.ident-pitch [lang="es"] {
-  display: block;
-  font-size: 0.78em;
-  color: var(--muted);
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  border-top: var(--hair) solid var(--faint);
-  max-width: 42ch;
-}
+/* .ident-pitch [lang="es"] — no override; bilingual general rule paints it */
 
 .section-label {
   font-family: var(--font-mono);
@@ -1142,13 +1168,7 @@ main.case-study {
   letter-spacing: -0.025em;
   margin-bottom: 0.75rem;
 }
-.case-title [lang="es"] {
-  display: block;
-  font-size: 0.6em;
-  color: var(--muted);
-  font-weight: 500;
-  margin-top: 0.25rem;
-}
+/* .case-title [lang="es"] — no override; bilingual general rule paints it */
 
 .case-subtitle {
   font-family: var(--font-subhead);
@@ -1158,12 +1178,7 @@ main.case-study {
   margin-bottom: 2rem;
   max-width: 42rem;
 }
-.case-subtitle [lang="es"] {
-  display: block;
-  font-size: 0.85em;
-  margin-top: 0.4rem;
-  color: var(--faint);
-}
+/* .case-subtitle [lang="es"] — no override; bilingual general rule paints it */
 
 .case-bluf {
   border-left: 3px solid var(--accent);
@@ -1173,14 +1188,7 @@ main.case-study {
   line-height: 1.5;
   margin-bottom: 2.5rem;
 }
-.case-bluf [lang="es"] {
-  display: block;
-  font-size: 0.85em;
-  color: var(--muted);
-  margin-top: 0.6rem;
-  padding-top: 0.6rem;
-  border-top: var(--hair) solid var(--faint);
-}
+/* .case-bluf [lang="es"] — no override; bilingual general rule paints it */
 
 .case-specs {
   display: grid;
@@ -1202,12 +1210,7 @@ main.case-study {
   margin-bottom: 0.25rem;
 }
 .case-specs dd { color: var(--ink); }
-.case-specs dd [lang="es"] {
-  display: block;
-  color: var(--muted);
-  font-size: 0.95em;
-  margin-top: 0.2rem;
-}
+/* .case-specs dd [lang="es"] — no override; bilingual general rule paints it */
 
 .case-tags {
   display: flex;

@@ -139,6 +139,52 @@
     else if (mq.addListener) mq.addListener(handler);
   }
 
+  /* ══ FOOTER INDICATORS AS CYCLING EASTER-EGG BUTTONS ════
+     The scheme/mode/lang readouts in the status footer cycle
+     to the next valid value on click. Discoverable, not loud.
+     ════════════════════════════════════════════════════════ */
+  function nextIn(arr, current) {
+    const i = arr.indexOf(current);
+    return arr[(i + 1) % arr.length];
+  }
+  function wireCycler(el, validList, currentGetter, applyFn, labelFor) {
+    if (!el) return;
+    el.setAttribute("role", "button");
+    el.setAttribute("tabindex", "0");
+    el.setAttribute("title", "click to cycle " + labelFor);
+    function fire() {
+      const cur = currentGetter() || validList[0];
+      const next = nextIn(validList, cur);
+      applyFn(next);
+      announce(labelFor + ": " + next);
+    }
+    el.addEventListener("click", fire);
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fire(); }
+    });
+  }
+  wireCycler(
+    document.querySelector("[data-scheme-indicator]"),
+    VALID_SCHEMES,
+    () => html.getAttribute("data-scheme"),
+    applyScheme,
+    "scheme"
+  );
+  wireCycler(
+    document.querySelector("[data-mode-indicator]"),
+    VALID_MODES,
+    () => html.getAttribute("data-mode"),
+    applyMode,
+    "mode"
+  );
+  wireCycler(
+    document.querySelector("[data-lang-indicator]"),
+    VALID_LANGS,
+    () => html.getAttribute("data-lang-view"),
+    applyLang,
+    "language"
+  );
+
   /* ══ PAST ZONE — view toggle + kind filter ═════════════ */
 
   const pastZone = document.querySelector("[data-past-zone]");

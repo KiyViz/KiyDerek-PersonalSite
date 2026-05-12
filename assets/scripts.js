@@ -239,223 +239,247 @@
     });
   });
 
-  /* ══ CONTACT FORM — compose, persist, send/copy/share ══════
-     Pure client-side composer. No backend. The form's inputs
-     drive a live preview textarea. Three actions: send via
-     mailto:, copy to clipboard, native Web Share where available.
-     Draft persists to localStorage on every input.
+  /* ══ GALLERY — spotify-shuffle work feed ════════════════════
+     Reads CONTENT.library, shuffles with a seeded PRNG (seed
+     cached to localStorage), renders cards into the container,
+     wires filter chips, shuffle button, and a lightweight
+     <dialog> lightbox for cards without an href.
      ════════════════════════════════════════════════════════ */
 
-  const form = document.querySelector("[data-contact-form]");
-  if (form) {
-    const FORM_KEY = "dk-form-draft";
-    const MAILTO_TO = "derek@kiyviz.com";
-    const MAILTO_LIMIT = 1800; // mailto: body length safety threshold
+  const galleryEl = document.querySelector("[data-gallery]");
+  if (galleryEl && CONTENT.library && CONTENT.library.length) {
+    const SEED_KEY = "dk-gallery-seed";
+    const FILTER_KEY = "dk-gallery-filter";
 
-    const fName    = form.querySelector('[name="name"]');
-    const fEmail   = form.querySelector('[name="email"]');
-    const fType    = form.querySelectorAll('[name="type"]');
-    const fSummary = form.querySelector('[name="summary"]');
-    const fDetails = form.querySelector('[name="details"]');
-    const fBudget  = form.querySelector('[name="budget"]');
-    const fTimeline= form.querySelector('[name="timeline"]');
-    const preview  = form.querySelector("[data-form-preview]");
-    const btnSend  = form.querySelector("[data-form-send]");
-    const btnCopy  = form.querySelector("[data-form-copy]");
-    const btnShare = form.querySelector("[data-form-share]");
-    const btnClear = form.querySelector("[data-form-clear]");
-    const draftHint= form.querySelector("[data-form-draft-hint]");
+    function newSeed() {
+      return (Math.random() * 0xffffffff) >>> 0;
+    }
+    function getSeed() {
+      try {
+        const raw = localStorage.getItem(SEED_KEY);
+        if (raw) {
+          const n = parseInt(raw, 10);
+          if (!isNaN(n)) return n;
+        }
+      } catch (e) {}
+      const s = newSeed();
+      try { localStorage.setItem(SEED_KEY, String(s)); } catch (e) {}
+      return s;
+    }
+    function setSeed(s) {
+      try { localStorage.setItem(SEED_KEY, String(s)); } catch (e) {}
+    }
 
-    function readState() {
-      let type = "consult";
-      fType.forEach((r) => { if (r.checked) type = r.value; });
-      return {
-        name:    fName.value.trim(),
-        email:   fEmail.value.trim(),
-        type:    type,
-        summary: fSummary.value.trim(),
-        details: fDetails.value.trim(),
-        budget:  fBudget ? fBudget.value.trim() : "",
-        timeline: fTimeline ? fTimeline.value.trim() : ""
+    // mulberry32 seeded PRNG — small, deterministic, good enough for shuffle
+    function mulberry32(seed) {
+      let a = seed >>> 0;
+      return function () {
+        a = (a + 0x6D2B79F5) >>> 0;
+        let t = a;
+        t = Math.imul(t ^ (t >>> 15), 1 | t);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
       };
     }
-
-    function writeState(s) {
-      if (!s) return;
-      if (s.name) fName.value = s.name;
-      if (s.email) fEmail.value = s.email;
-      if (s.summary) fSummary.value = s.summary;
-      if (s.details) fDetails.value = s.details;
-      if (s.budget && fBudget) fBudget.value = s.budget;
-      if (s.timeline && fTimeline) fTimeline.value = s.timeline;
-      if (s.type) {
-        fType.forEach((r) => { r.checked = (r.value === s.type); });
+    function shuffleSeeded(arr, seed) {
+      const rng = mulberry32(seed);
+      const out = arr.slice();
+      for (let i = out.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        const tmp = out[i]; out[i] = out[j]; out[j] = tmp;
       }
+      return out;
     }
 
-    function langView() {
-      return html.getAttribute("data-lang-view") || "all";
+    // Filter state — { kind: "all"|<kind>, polish: "all"|<polish> }
+    function loadFilter() {
+      try {
+        const raw = localStorage.getItem(FILTER_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return { kind: "all", polish: "all" };
+    }
+    function saveFilter(state) {
+      try { localStorage.setItem(FILTER_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+    let filterState = loadFilter();
+
+    function parseRatio(r) {
+      if (!r) return "4 / 3";
+      const m = String(r).match(/^([\d.]+)\s*[:/]\s*([\d.]+)$/);
+      if (m) return `${m[1]} / ${m[2]}`;
+      return "4 / 3";
     }
 
-    function compose() {
-      const s = readState();
-      const isES = langView() === "es";
-      const greet = isES ? "Hola Derek," : "Hi Derek,";
-      const intro = isES
-        ? `Soy ${s.name || "[tu nombre]"} (${s.email || "[tu correo]"}).`
-        : `I'm ${s.name || "[your name]"} (${s.email || "[your email]"}).`;
-      const sumLabel  = isES ? "Resumen"   : "Summary";
-      const typeLabel = isES ? "Tipo"      : "Type";
-      const budgLabel = isES ? "Presupuesto" : "Budget";
-      const tmLabel   = isES ? "Fechas"    : "Timeline";
-      const close     = isES ? "Gracias,"  : "Thanks,";
-      const typeDisplay = {
-        consult: isES ? "consulta ($97)" : "consult ($97)",
-        project: isES ? "proyecto a la medida" : "project (done-for-you)",
-        question: isES ? "pregunta" : "question",
-        other:   isES ? "otro" : "other"
-      }[s.type] || s.type;
-
-      const lines = [];
-      lines.push(greet);
-      lines.push("");
-      lines.push(intro);
-      lines.push("");
-      if (s.summary) lines.push(`${sumLabel}: ${s.summary}`);
-      lines.push(`${typeLabel}: ${typeDisplay}`);
-      if (s.budget)   lines.push(`${budgLabel}: ${s.budget}`);
-      if (s.timeline) lines.push(`${tmLabel}: ${s.timeline}`);
-      lines.push("");
-      if (s.details) {
-        lines.push(s.details);
-        lines.push("");
+    function renderCard(asset) {
+      const a = document.createElement(asset.href ? "a" : "button");
+      a.className = "gallery-card";
+      a.setAttribute("data-kind", asset.kind || "");
+      a.setAttribute("data-polish", asset.polish || "");
+      a.setAttribute("data-slug", asset.slug);
+      if (asset.href) {
+        a.href = asset.href;
+      } else {
+        a.type = "button";
+        a.setAttribute("data-lightbox", asset.slug);
       }
-      lines.push(close);
-      if (s.name) lines.push(s.name);
-      return lines.join("\n");
+
+      const fig = document.createElement("figure");
+      fig.className = "gallery-card-img";
+      fig.style.aspectRatio = parseRatio(asset.ratio);
+      const img = document.createElement("img");
+      img.src = asset.img;
+      img.alt = asset.caption || asset.slug;
+      img.loading = "lazy";
+      img.decoding = "async";
+      fig.appendChild(img);
+      a.appendChild(fig);
+
+      const body = document.createElement("div");
+      body.className = "gallery-card-body";
+      const cap = document.createElement("p");
+      cap.className = "gallery-card-caption";
+      cap.textContent = asset.caption || "";
+      body.appendChild(cap);
+      const meta = document.createElement("p");
+      meta.className = "gallery-card-meta";
+      const parts = [];
+      if (asset.year)   parts.push(asset.year);
+      if (asset.kind)   parts.push(asset.kind);
+      if (asset.polish) parts.push(asset.polish);
+      meta.textContent = parts.join(" · ");
+      body.appendChild(meta);
+      a.appendChild(body);
+
+      return a;
     }
 
-    function refresh() {
-      // Only auto-fill preview if user hasn't manually edited it
-      if (!preview.dataset.userEdited) {
-        preview.value = compose();
-      }
-    }
-
-    // Persist draft (debounced)
-    let saveTimer = null;
-    function saveDraft() {
-      if (saveTimer) clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => {
-        try {
-          localStorage.setItem(FORM_KEY, JSON.stringify(readState()));
-          if (draftHint) draftHint.textContent = langView() === "es" ? "✓ borrador guardado" : "✓ draft saved";
-        } catch (e) {}
-      }, 350);
-    }
-
-    // Load draft on init
-    try {
-      const raw = localStorage.getItem(FORM_KEY);
-      if (raw) {
-        const saved = JSON.parse(raw);
-        writeState(saved);
-        if (draftHint) draftHint.textContent = langView() === "es" ? "✓ borrador restaurado" : "✓ draft restored";
-      }
-    } catch (e) {}
-    refresh();
-
-    // Wire input events
-    form.querySelectorAll("input, textarea").forEach((el) => {
-      el.addEventListener("input", () => {
-        if (el === preview) {
-          preview.dataset.userEdited = "1";
-        } else {
-          refresh();
-        }
-        saveDraft();
+    function applyFilter() {
+      galleryEl.querySelectorAll(".gallery-card").forEach((card) => {
+        const kindOk = filterState.kind === "all" || card.dataset.kind === filterState.kind;
+        const polishOk = filterState.polish === "all" || card.dataset.polish === filterState.polish;
+        if (kindOk && polishOk) card.removeAttribute("hidden");
+        else card.setAttribute("hidden", "");
       });
-      el.addEventListener("change", () => {
-        refresh();
-        saveDraft();
+      // Update chip pressed states
+      document.querySelectorAll("[data-filter-chip]").forEach((chip) => {
+        const facet = chip.dataset.filterFacet;
+        const value = chip.dataset.filterValue;
+        chip.setAttribute("aria-pressed", filterState[facet] === value ? "true" : "false");
+      });
+    }
+
+    function renderGallery() {
+      const seed = getSeed();
+      const ordered = shuffleSeeded(CONTENT.library, seed);
+      galleryEl.innerHTML = "";
+      ordered.forEach((asset) => galleryEl.appendChild(renderCard(asset)));
+      applyFilter();
+    }
+
+    renderGallery();
+
+    // Wire shuffle button
+    const shuffleBtn = document.querySelector("[data-gallery-shuffle]");
+    if (shuffleBtn) {
+      shuffleBtn.addEventListener("click", () => {
+        const s = newSeed();
+        setSeed(s);
+        renderGallery();
+        announce("Gallery reshuffled");
+      });
+    }
+
+    // Wire filter chips
+    document.querySelectorAll("[data-filter-chip]").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const facet = chip.dataset.filterFacet;
+        const value = chip.dataset.filterValue;
+        filterState[facet] = value;
+        saveFilter(filterState);
+        applyFilter();
       });
     });
 
-    // Send via email (mailto:)
-    if (btnSend) {
-      btnSend.addEventListener("click", (ev) => {
+    /* ── LIGHTBOX — for cards without an href ─────────────── */
+    const lightbox = document.querySelector("[data-lightbox-dialog]");
+    if (lightbox) {
+      const lbImg = lightbox.querySelector("[data-lightbox-img]");
+      const lbCaption = lightbox.querySelector("[data-lightbox-caption]");
+      const lbMeta = lightbox.querySelector("[data-lightbox-meta]");
+      const lbClose = lightbox.querySelector("[data-lightbox-close]");
+
+      galleryEl.addEventListener("click", (ev) => {
+        const trigger = ev.target.closest("[data-lightbox]");
+        if (!trigger) return;
         ev.preventDefault();
-        const s = readState();
-        const subject = s.summary || (langView() === "es" ? "Hola desde derekkiy.com" : "Hello from derekkiy.com");
-        const body = preview.value;
-        const encodedBody = encodeURIComponent(body);
-        if (encodedBody.length > MAILTO_LIMIT) {
-          showToast(langView() === "es"
-            ? "Mensaje largo — usa Copiar y pégalo en tu correo"
-            : "Message is long — use Copy and paste into your email");
-          btnCopy && btnCopy.focus();
-          return;
+        const slug = trigger.getAttribute("data-lightbox");
+        const asset = CONTENT.findAsset(slug);
+        if (!asset) return;
+        lbImg.src = asset.img;
+        lbImg.alt = asset.caption || asset.slug;
+        lbCaption.textContent = asset.caption || "";
+        const parts = [];
+        if (asset.year)   parts.push(asset.year);
+        if (asset.kind)   parts.push(asset.kind);
+        if (asset.polish) parts.push(asset.polish);
+        lbMeta.textContent = parts.join(" · ");
+        if (typeof lightbox.showModal === "function") {
+          lightbox.showModal();
+        } else {
+          lightbox.setAttribute("open", "");
         }
-        const url = "mailto:" + MAILTO_TO
-          + "?subject=" + encodeURIComponent(subject)
-          + "&body=" + encodedBody;
-        location.href = url;
-        showToast(langView() === "es" ? "Abriendo tu cliente de correo…" : "Opening your mail client…");
       });
-    }
-
-    // Copy message
-    if (btnCopy) {
-      btnCopy.addEventListener("click", async (ev) => {
-        ev.preventDefault();
-        const ok = await copyText(preview.value);
-        showToast(ok
-          ? (langView() === "es" ? "Mensaje copiado" : "Message copied")
-          : (langView() === "es" ? "Error al copiar" : "Copy failed"));
-        btnCopy.focus();
-      });
-    }
-
-    // Native share (mobile / supported browsers)
-    if (btnShare) {
-      if (!navigator.share) {
-        btnShare.hidden = true;
-      } else {
-        btnShare.addEventListener("click", async (ev) => {
-          ev.preventDefault();
-          const s = readState();
-          try {
-            await navigator.share({
-              title: s.summary || "derekkiy.com",
-              text: preview.value
-            });
-          } catch (err) {
-            // user cancelled or share failed — fall through silently
-          }
+      if (lbClose) {
+        lbClose.addEventListener("click", () => {
+          if (typeof lightbox.close === "function") lightbox.close();
+          else lightbox.removeAttribute("open");
         });
       }
-    }
-
-    // Clear draft
-    if (btnClear) {
-      btnClear.addEventListener("click", (ev) => {
-        ev.preventDefault();
-        try { localStorage.removeItem(FORM_KEY); } catch (e) {}
-        form.reset();
-        fType.forEach((r, i) => { r.checked = (i === 0); });
-        delete preview.dataset.userEdited;
-        refresh();
-        if (draftHint) draftHint.textContent = "";
-        showToast(langView() === "es" ? "Borrador borrado" : "Draft cleared");
-        fName.focus();
+      // Click backdrop to close
+      lightbox.addEventListener("click", (ev) => {
+        if (ev.target === lightbox) {
+          if (typeof lightbox.close === "function") lightbox.close();
+          else lightbox.removeAttribute("open");
+        }
       });
     }
+  }
 
-    // Refresh preview when lang view changes (so boilerplate updates)
-    try {
-      const langMO = new MutationObserver(() => refresh());
-      langMO.observe(html, { attributes: true, attributeFilter: ["data-lang-view"] });
-    } catch (e) {}
+  /* ══ STICKY CONTACT — mobile bottom drawer ══════════════════
+     On wide screens the sticky pane lives as a right rail. On
+     narrow viewports it collapses to a slim bottom bar; tapping
+     the bar expands the drawer. Escape and backdrop-click close.
+     ════════════════════════════════════════════════════════ */
+  const stickyContact = document.querySelector("[data-sticky-contact]");
+  if (stickyContact) {
+    const expandBtn = stickyContact.querySelector("[data-drawer-expand]");
+    const closeBtn = stickyContact.querySelector("[data-drawer-close]");
+    function open() {
+      stickyContact.setAttribute("data-drawer-open", "true");
+      document.body.classList.add("drawer-open");
+      const firstFocusable = stickyContact.querySelector("a, button");
+      if (firstFocusable) firstFocusable.focus();
+    }
+    function close() {
+      stickyContact.removeAttribute("data-drawer-open");
+      document.body.classList.remove("drawer-open");
+      if (expandBtn) expandBtn.focus();
+    }
+    if (expandBtn) expandBtn.addEventListener("click", open);
+    if (closeBtn)  closeBtn.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && stickyContact.hasAttribute("data-drawer-open")) {
+        close();
+      }
+    });
+    // Click outside the drawer (on the body but not the drawer) closes on mobile
+    document.addEventListener("click", (e) => {
+      if (!stickyContact.hasAttribute("data-drawer-open")) return;
+      if (e.target === expandBtn) return;
+      if (stickyContact.contains(e.target)) return;
+      close();
+    });
   }
 
   /* ══ PAST ZONE — view toggle + kind filter ═════════════ */

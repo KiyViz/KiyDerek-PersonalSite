@@ -67,9 +67,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/styles.css?v=0.9">
+<link rel="stylesheet" href="assets/styles.css?v=1.0">
 
-<script src="assets/content.js?v=0.9"></script>
+<script src="assets/content.js?v=1.0"></script>
 
 <script type="application/ld+json">
 {
@@ -92,9 +92,9 @@
 }
 </script>
 </head>
-<body class="page-mrk1">
+<body class="page-home">
 
-<a href="#contact" class="skip">Skip to contact</a>
+<a href="#sticky-contact" class="skip">Skip to contact</a>
 <div class="sr-only" id="theme-announcer" role="status" aria-live="polite"></div>
 
 <header class="site-header">
@@ -104,283 +104,133 @@
   </a>
   <div class="header-controls">
     <nav class="site-nav" aria-label="Site sections">
-      <a href="#work"><span lang="en">work</span><span lang="es" aria-hidden="true">obra</span></a>
+      <a href="work/index.html"><span lang="en">work</span><span lang="es" aria-hidden="true">obra</span></a>
     </nav>
-    <a class="header-cta" href="#contact">
+    <a class="header-cta" href="mailto:derek@kiyviz.com?subject=Hello%20Derek">
       <span lang="en">contact</span><span lang="es" aria-hidden="true">contacto</span>
       <span class="cta-arrow" aria-hidden="true">→</span>
     </a>
   </div>
 </header>
 
-<main id="main" class="mrk1">
+<main id="main" class="home">
+  <div class="home-layout">
 
-  <section class="ident" aria-labelledby="ident-pitch">
-    <p class="ident-handle">~/dk · designer · escondido ca · en/es</p>
-    <h1 id="ident-pitch" class="ident-pitch">
-      <span lang="en">Mission-driven design for complex ideas — maps, identities, reports, campaigns.</span>
-      <span lang="es" aria-hidden="true">Diseño con propósito para ideas complejas — mapas, identidades, reportes, campañas.</span>
-    </h1>
-  </section>
+    <div class="home-feed">
 
-  <section id="contact" class="contact-section" aria-labelledby="contact-h">
-    <h2 id="contact-h" class="section-label">
-      <span lang="en">Contact</span>
-      <span lang="es" aria-hidden="true">Contacto</span>
-    </h2>
-    <p class="contact-intro">
-      <span lang="en">Reach me directly, or write a brief and I'll respond fast.</span>
-      <span lang="es" aria-hidden="true">Contáctame directamente, o escribe un resumen y te respondo pronto.</span>
-    </p>
+      <section class="ident" aria-labelledby="ident-pitch">
+        <p class="ident-handle">~/dk · designer · escondido ca · en/es</p>
+        <h1 id="ident-pitch" class="ident-pitch">
+          <span lang="en">Mission-driven design for complex ideas — maps, identities, reports, campaigns.</span>
+          <span lang="es" aria-hidden="true">Diseño con propósito para ideas complejas — mapas, identidades, reportes, campañas.</span>
+        </h1>
+      </section>
 
-    <h3 class="contact-subhead">
-      <span lang="en">direct</span>
-      <span lang="es" aria-hidden="true">directo</span>
-    </h3>
-    <dl class="contact-dl">
-      <div class="contact-row">
-        <dt>email</dt>
-        <dd>
-          <a href="mailto:derek@kiyviz.com">derek@kiyviz.com</a>
+      <div class="gallery-toolbar" role="toolbar" aria-label="Gallery controls">
+        <button type="button" class="gallery-shuffle" data-gallery-shuffle aria-label="Shuffle the gallery">
+          <span class="shuffle-icon" aria-hidden="true">↻</span>
+          <span>shuffle</span>
+        </button>
+
+        <div class="gallery-filters" role="group" aria-label="Filter by kind">
+          <span class="gallery-filters-label">kind</span>
+          <button type="button" data-filter-chip data-filter-facet="kind" data-filter-value="all" aria-pressed="true">all</button>
+          <button type="button" data-filter-chip data-filter-facet="kind" data-filter-value="cartography" aria-pressed="false">cartography</button>
+          <button type="button" data-filter-chip data-filter-facet="kind" data-filter-value="identity" aria-pressed="false">identity</button>
+          <button type="button" data-filter-chip data-filter-facet="kind" data-filter-value="campaign" aria-pressed="false">campaign</button>
+          <button type="button" data-filter-chip data-filter-facet="kind" data-filter-value="editorial" aria-pressed="false">editorial</button>
+          <button type="button" data-filter-chip data-filter-facet="kind" data-filter-value="civic" aria-pressed="false">civic</button>
+          <button type="button" data-filter-chip data-filter-facet="kind" data-filter-value="policy" aria-pressed="false">policy</button>
+        </div>
+
+        <div class="gallery-filters" role="group" aria-label="Filter by polish level">
+          <span class="gallery-filters-label">polish</span>
+          <button type="button" data-filter-chip data-filter-facet="polish" data-filter-value="all" aria-pressed="true">all</button>
+          <button type="button" data-filter-chip data-filter-facet="polish" data-filter-value="sketch" aria-pressed="false">sketch</button>
+          <button type="button" data-filter-chip data-filter-facet="polish" data-filter-value="wip" aria-pressed="false">wip</button>
+          <button type="button" data-filter-chip data-filter-facet="polish" data-filter-value="polished" aria-pressed="false">polished</button>
+          <button type="button" data-filter-chip data-filter-facet="polish" data-filter-value="final" aria-pressed="false">final</button>
+        </div>
+      </div>
+
+      <section class="gallery" data-gallery aria-label="Work — shuffled gallery"></section>
+
+    </div>
+
+    <aside class="sticky-contact" data-sticky-contact aria-labelledby="sticky-contact-name" id="sticky-contact">
+      <p class="sticky-handle">~/dk · escondido · pacific</p>
+      <h2 id="sticky-contact-name" class="sticky-name">Derek Kiy</h2>
+      <p class="sticky-role"><span lang="en">designer · bilingual EN/ES</span><span lang="es" aria-hidden="true">diseñador · bilingüe EN/ES</span></p>
+
+      <dl>
+        <div>
+          <dt>email</dt>
+          <dd><a href="mailto:derek@kiyviz.com">derek@kiyviz.com</a></dd>
           <button type="button" class="copy-btn" data-copy="derek@kiyviz.com" data-copy-label="email" aria-label="Copy email address">copy</button>
-        </dd>
-      </div>
-      <div class="contact-row">
-        <dt>phone</dt>
-        <dd>
-          <a href="tel:+18584323234">+1 (858) 432-3234</a>
+        </div>
+        <div>
+          <dt>phone</dt>
+          <dd><a href="tel:+18584323234">+1&nbsp;858&nbsp;432&nbsp;3234</a></dd>
           <button type="button" class="copy-btn" data-copy="+1 858 432 3234" data-copy-label="phone number" aria-label="Copy phone number">copy</button>
-        </dd>
-      </div>
-      <div class="contact-row">
-        <dt>consult</dt>
-        <dd>
-          <span lang="en">$97 / 20-min call + 1-page written action plan</span>
-          <span lang="es" aria-hidden="true">$97 / llamada de 20 min + plan de acción de 1 página</span>
-        </dd>
-      </div>
-      <div class="contact-row">
-        <dt>project</dt>
-        <dd>
-          <span lang="en">done-for-you, 40 – 200 hours — <a href="contact/index.html#faq">full scope / FAQ</a></span>
-          <span lang="es" aria-hidden="true">a la medida, 40 – 200 horas — <a href="contact/index.html#faq">alcance / FAQ</a></span>
-        </dd>
-      </div>
-      <div class="contact-row">
-        <dt>location</dt>
-        <dd>Escondido, CA · Pacific time</dd>
-      </div>
-    </dl>
-
-    <h3 class="contact-subhead">
-      <span lang="en">write a brief</span>
-      <span lang="es" aria-hidden="true">escribe un resumen</span>
-    </h3>
-
-    <form class="contact-form" data-contact-form onsubmit="event.preventDefault()" aria-label="Project brief composer">
-
-      <div class="form-row-pair">
-        <div class="form-row">
-          <label class="form-label" for="f-name">
-            <span lang="en">your name</span><span lang="es" aria-hidden="true">tu nombre</span>
-            <span class="req" aria-hidden="true">*</span>
-          </label>
-          <input type="text" class="form-input" id="f-name" name="name" required autocomplete="name" placeholder="Sarah Chen">
         </div>
-        <div class="form-row">
-          <label class="form-label" for="f-email">
-            <span lang="en">your email</span><span lang="es" aria-hidden="true">tu correo</span>
-            <span class="req" aria-hidden="true">*</span>
-          </label>
-          <input type="email" class="form-input" id="f-email" name="email" required autocomplete="email" placeholder="sarah@example.com">
-        </div>
+      </dl>
+
+      <hr class="sticky-divider">
+
+      <div class="sticky-block-label">
+        <span lang="en">consult · $97</span><span lang="es" aria-hidden="true">consulta · $97</span>
       </div>
-
-      <div class="form-row">
-        <span class="form-label">
-          <span lang="en">type</span><span lang="es" aria-hidden="true">tipo</span>
-        </span>
-        <div class="form-chips" role="radiogroup" aria-label="Project type">
-          <label><input type="radio" name="type" value="consult" checked><span class="chip-label">consult · $97</span></label>
-          <label><input type="radio" name="type" value="project"><span class="chip-label"><span lang="en">project</span><span lang="es" aria-hidden="true">proyecto</span></span></label>
-          <label><input type="radio" name="type" value="question"><span class="chip-label"><span lang="en">question</span><span lang="es" aria-hidden="true">pregunta</span></span></label>
-          <label><input type="radio" name="type" value="other"><span class="chip-label"><span lang="en">other</span><span lang="es" aria-hidden="true">otro</span></span></label>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label class="form-label" for="f-summary">
-          <span lang="en">one-line summary</span><span lang="es" aria-hidden="true">resumen en una línea</span>
-          <span class="req" aria-hidden="true">*</span>
-        </label>
-        <input type="text" class="form-input" id="f-summary" name="summary" required placeholder="Cartography for state water policy briefing">
-      </div>
-
-      <div class="form-row">
-        <label class="form-label" for="f-details">
-          <span lang="en">tell me more</span><span lang="es" aria-hidden="true">cuéntame más</span>
-          <span class="req" aria-hidden="true">*</span>
-        </label>
-        <textarea class="form-textarea" id="f-details" name="details" required rows="5" placeholder="Context, the question you're trying to answer, anything I should see or read…"></textarea>
-      </div>
-
-      <div class="form-row-pair">
-        <div class="form-row">
-          <label class="form-label" for="f-budget">
-            <span lang="en">budget hint</span><span lang="es" aria-hidden="true">presupuesto (opcional)</span>
-          </label>
-          <input type="text" class="form-input" id="f-budget" name="budget" placeholder="~$5K, or 'flexible'">
-        </div>
-        <div class="form-row">
-          <label class="form-label" for="f-timeline">
-            <span lang="en">timeline</span><span lang="es" aria-hidden="true">fechas (opcional)</span>
-          </label>
-          <input type="text" class="form-input" id="f-timeline" name="timeline" placeholder="Before summer 2026">
-        </div>
-      </div>
-
-      <div class="form-preview-wrap">
-        <label class="form-label" for="f-preview">
-          <span lang="en">preview — edit before sending</span><span lang="es" aria-hidden="true">vista previa — edita antes de enviar</span>
-        </label>
-        <textarea class="form-preview" id="f-preview" data-form-preview rows="14" aria-label="Generated message preview"></textarea>
-      </div>
-
-      <div class="form-actions">
-        <button type="button" class="form-btn form-btn-primary" data-form-send aria-label="Send message via email">
-          <span lang="en">✉ send via email</span><span lang="es" aria-hidden="true">✉ enviar por correo</span>
-        </button>
-        <button type="button" class="form-btn" data-form-copy aria-label="Copy message to clipboard">
-          <span lang="en">📋 copy message</span><span lang="es" aria-hidden="true">📋 copiar mensaje</span>
-        </button>
-        <button type="button" class="form-btn" data-form-share aria-label="Share via system share sheet" hidden>
-          <span lang="en">⤴ share</span><span lang="es" aria-hidden="true">⤴ compartir</span>
-        </button>
-      </div>
-
-      <div class="form-meta">
-        <span data-form-draft-hint></span>
-        <button type="button" class="form-clear" data-form-clear aria-label="Clear the draft and reset the form">
-          <span lang="en">clear draft</span><span lang="es" aria-hidden="true">borrar</span>
-        </button>
-      </div>
-
-    </form>
-  </section>
-
-  <section id="work" class="work-block" aria-labelledby="work-h" data-past-zone data-past-view="list" data-past-filter="all">
-    <h2 id="work-h" class="section-label">
-      <span lang="en">Work</span>
-      <span lang="es" aria-hidden="true">Obra</span>
-    </h2>
-    <p class="section-tagline">
-      <span lang="en">9 selected case studies. Most recent first. Click for the full write-up.</span>
-      <span lang="es" aria-hidden="true">9 casos seleccionados. Recientes primero. Haz clic para el caso completo.</span>
-    </p>
-
-    <div class="past-controls" role="toolbar" aria-label="Portfolio controls">
-      <div>
-        <span class="past-controls-label">filter</span>
-        <div class="past-filters" role="group" aria-label="Filter by kind">
-          <button type="button" data-set-kind="all"          aria-pressed="true">all</button>
-          <button type="button" data-set-kind="cartography"  aria-pressed="false">cartography</button>
-          <button type="button" data-set-kind="identity"     aria-pressed="false">identity</button>
-          <button type="button" data-set-kind="campaign"     aria-pressed="false">campaign</button>
-          <button type="button" data-set-kind="editorial"    aria-pressed="false">editorial</button>
-          <button type="button" data-set-kind="civic"        aria-pressed="false">civic</button>
-          <button type="button" data-set-kind="policy"       aria-pressed="false">policy</button>
-        </div>
-      </div>
-      <div>
-        <span class="past-controls-label">view</span>
-        <div class="past-views" role="group" aria-label="View">
-          <button type="button" data-set-view="list" aria-pressed="true">▣ list</button>
-          <button type="button" data-set-view="grid" aria-pressed="false">▦ grid</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="past-list" role="list">
-      <a class="past-row" href="work/nokings.html" data-kind="campaign identity print" role="listitem">
-        <span class="cell-year">2026</span>
-        <span class="cell-client">No Kings USA</span>
-        <span class="cell-title">4th Amendment Campaign</span>
-        <span class="cell-kind">campaign</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
+      <p class="sticky-block-body">
+        <span lang="en">20-min call + 1-page written action plan in your inbox within 24h.</span>
+        <span lang="es" aria-hidden="true">llamada de 20 min + plan de acción de 1 página en menos de 24 h.</span>
+      </p>
+      <a class="sticky-cta" href="mailto:derek@kiyviz.com?subject=Book%20a%20%2497%20consult&amp;body=Hi%20Derek%2C%0A%0AI%27d%20like%20to%20book%20a%2020-min%20consult.%20Quick%20context%3A%0A%0A">
+        <span lang="en">Book a consult</span><span lang="es" aria-hidden="true">Reservar consulta</span>
+        <span class="cta-arrow" aria-hidden="true">→</span>
       </a>
-      <a class="past-row" href="work/calchamber.html" data-kind="cartography editorial policy" role="listitem">
-        <span class="cell-year">2025</span>
-        <span class="cell-client">CalChamber Alert</span>
-        <span class="cell-title">Border Consumption Tax Map</span>
-        <span class="cell-kind">cartography</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="past-row" href="work/sis.html" data-kind="policy cartography editorial" role="listitem">
-        <span class="cell-year">2025</span>
-        <span class="cell-client">Self-initiated</span>
-        <span class="cell-title">Space Impact Study</span>
-        <span class="cell-kind">policy</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="past-row" href="work/nacwg.html" data-kind="identity editorial cartography policy" role="listitem">
-        <span class="cell-year">2024</span>
-        <span class="cell-client">NACWG</span>
-        <span class="cell-title">White Paper + Identity</span>
-        <span class="cell-kind">identity</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="past-row" href="work/studiosun.html" data-kind="identity" role="listitem">
-        <span class="cell-year">2024</span>
-        <span class="cell-client">Studio Sun</span>
-        <span class="cell-title">Bilingual Identity System</span>
-        <span class="cell-kind">identity</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="past-row" href="work/symphonic.html" data-kind="identity editorial" role="listitem">
-        <span class="cell-year">2024</span>
-        <span class="cell-client">Symphonic Stories</span>
-        <span class="cell-title">Brand System</span>
-        <span class="cell-kind">identity</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="past-row" href="work/ioa.html" data-kind="editorial policy" role="listitem">
-        <span class="cell-year">2023</span>
-        <span class="cell-client">Institute of the Americas</span>
-        <span class="cell-title">E-Mobility Brochure (EN / ES / PT)</span>
-        <span class="cell-kind">editorial</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="past-row" href="work/deputy.html" data-kind="editorial" role="listitem">
-        <span class="cell-year">2023</span>
-        <span class="cell-client">Institute of the Americas</span>
-        <span class="cell-title">Deputy Meeting Poster</span>
-        <span class="cell-kind">editorial</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="past-row" href="work/jtc.html" data-kind="civic editorial typography" role="listitem">
-        <span class="cell-year">2023+</span>
-        <span class="cell-client">Just the Constitution</span>
-        <span class="cell-title">Civic-tech reading site</span>
-        <span class="cell-kind">civic</span>
-        <span class="cell-arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
 
-    <div class="past-grid" role="list">
-      <a class="past-card" href="work/nokings.html" data-kind="campaign identity print" role="listitem"><div class="past-card-img"><img src="assets/img/work/nokings-4th-amendment.webp" alt="No Kings 4th Amendment campaign" loading="lazy" decoding="async"></div><div class="past-card-body"><div class="past-card-title">4th Amendment Campaign</div><div class="past-card-meta"><span>No Kings USA</span><span>2026</span></div></div></a>
-      <a class="past-card" href="work/calchamber.html" data-kind="cartography editorial policy" role="listitem"><div class="past-card-img"><img src="assets/img/work/calchamber-border-tax.webp" alt="Border Consumption Tax Map" loading="lazy" decoding="async"></div><div class="past-card-body"><div class="past-card-title">Border Consumption Tax Map</div><div class="past-card-meta"><span>CalChamber</span><span>2025</span></div></div></a>
-      <a class="past-card" href="work/sis.html" data-kind="policy cartography editorial" role="listitem"><div class="past-card-img"><img src="assets/img/work/sis-space-impact-study.webp" alt="Space Impact Study" loading="lazy" decoding="async"></div><div class="past-card-body"><div class="past-card-title">Space Impact Study</div><div class="past-card-meta"><span>self-initiated</span><span>2025+</span></div></div></a>
-      <a class="past-card" href="work/nacwg.html" data-kind="identity editorial cartography policy" role="listitem"><div class="past-card-img"><img src="assets/img/work/nacwg-white-paper.webp" alt="NACWG white paper cover" loading="lazy" decoding="async"></div><div class="past-card-body"><div class="past-card-title">White Paper + Identity</div><div class="past-card-meta"><span>NACWG</span><span>2024</span></div></div></a>
-      <a class="past-card" href="work/studiosun.html" data-kind="identity" role="listitem"><div class="past-card-img"><img src="assets/img/work/studio-sun.webp" alt="Studio Sun bilingual identity" loading="lazy" decoding="async"></div><div class="past-card-body"><div class="past-card-title">Bilingual Identity System</div><div class="past-card-meta"><span>Studio Sun</span><span>2024</span></div></div></a>
-      <a class="past-card" href="work/symphonic.html" data-kind="identity editorial" role="listitem"><div class="past-card-img"><img src="assets/img/work/symphonic-stories.webp" alt="Symphonic Stories brand system" loading="lazy" decoding="async"></div><div class="past-card-body"><div class="past-card-title">Brand System</div><div class="past-card-meta"><span>Symphonic</span><span>2024</span></div></div></a>
-      <a class="past-card" href="work/ioa.html" data-kind="editorial policy" role="listitem"><div class="past-card-img"><img src="assets/img/work/ioa-emobility.webp" alt="IOA E-Mobility brochure" loading="lazy" decoding="async"></div><div class="past-card-body"><div class="past-card-title">E-Mobility Brochure</div><div class="past-card-meta"><span>IOA</span><span>2023</span></div></div></a>
-      <a class="past-card" href="work/deputy.html" data-kind="editorial" role="listitem"><div class="past-card-img"><img src="assets/img/work/ioa-deputy-meeting.webp" alt="IOA deputy meeting poster" loading="lazy" decoding="async"></div><div class="past-card-body"><div class="past-card-title">Deputy Meeting Poster</div><div class="past-card-meta"><span>IOA</span><span>2023</span></div></div></a>
-      <a class="past-card" href="work/jtc.html" data-kind="civic editorial typography" role="listitem"><div class="past-card-img" style="background:repeating-linear-gradient(135deg,var(--paper-inset),var(--paper-inset) 10px,var(--paper-raised) 10px,var(--paper-raised) 20px);"></div><div class="past-card-body"><div class="past-card-title">Just the Constitution</div><div class="past-card-meta"><span>civic-tech</span><span>2023+</span></div></div></a>
-    </div>
+      <hr class="sticky-divider">
 
-  </section>
+      <div class="sticky-block-label">
+        <span lang="en">project · done-for-you</span><span lang="es" aria-hidden="true">proyecto · a la medida</span>
+      </div>
+      <p class="sticky-block-body">
+        <span lang="en">Identity, cartography, editorial, civic. 40 – 200 hours typical.</span>
+        <span lang="es" aria-hidden="true">Identidad, cartografía, editorial, cívico. 40 – 200 horas típicas.</span>
+      </p>
+      <a class="sticky-cta" href="contact/index.html#faq" style="background:transparent;color:var(--ink);border-color:var(--ink);">
+        <span lang="en">Scope / FAQ</span><span lang="es" aria-hidden="true">Alcance / FAQ</span>
+        <span class="cta-arrow" aria-hidden="true">→</span>
+      </a>
 
+      <button type="button" class="drawer-close" data-drawer-close aria-label="Close contact drawer">
+        <span lang="en">× close</span><span lang="es" aria-hidden="true">× cerrar</span>
+      </button>
+    </aside>
+
+  </div>
 </main>
+
+<button type="button" class="sticky-bar-toggle" data-drawer-expand aria-label="Open contact drawer">
+  <span>✉ derek@kiyviz.com</span>
+  <span class="bar-cta">
+    <span lang="en">book a consult</span><span lang="es" aria-hidden="true">reserva</span>
+  </span>
+  <span class="bar-arrow" aria-hidden="true">↑</span>
+</button>
+
+<dialog class="lightbox" data-lightbox-dialog aria-label="Asset detail">
+  <div class="lightbox-inner">
+    <div class="lightbox-img-wrap">
+      <img data-lightbox-img src="" alt="">
+    </div>
+    <div class="lightbox-body">
+      <p class="lightbox-caption" data-lightbox-caption></p>
+      <p class="lightbox-meta" data-lightbox-meta></p>
+      <button type="button" class="lightbox-close" data-lightbox-close>close</button>
+    </div>
+  </div>
+</dialog>
 
 <footer class="status-footer" role="contentinfo" aria-label="Status line">
   <span class="status-sigil">~/dk:</span>
@@ -398,7 +248,7 @@
   </span>
 </footer>
 
-<script src="assets/scripts.js?v=0.9"></script>
+<script src="assets/scripts.js?v=1.0"></script>
 
 </body>
 </html>

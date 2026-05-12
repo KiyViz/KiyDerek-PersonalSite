@@ -23,113 +23,117 @@
     14. Print · prefers-reduced-motion
    ───────────────────────────────────────────────────────── */
 
-/* ═══ THEMES — elemental: earth · air · water · fire ═══════════
-   4 schemes × 3 modes (light / dark / oled). Each scheme uses the
-   same variable names so layout CSS doesn't care which is active.
-   Default on load: earth · light.
+/* ═══ THEMES — split-complementary: amber · green · blue · neutral ═══
+   4 schemes × 3 modes (light / dark / oled). Each scheme is built on
+   a base hue, with --accent set to the base's direct complement (180°
+   opposite) and --accent-2 to an adjacent split-complement (~30° off).
+   The bilingual EN/ES color-mix uses these two accents, so every
+   scheme renders EN and ES in distinct but harmonized hues.
+
+   Default on load: amber · light.
    Every combination targets WCAG AA for body text.
    ═══════════════════════════════════════════════════════════ */
 
-/* ── EARTH — soil · umber · terracotta · moss ── */
-html[data-scheme="earth"][data-mode="light"] {
-  --paper:#e6d4b3; --paper-rgb:230,212,179; --paper-raised:#ecdcbe; --paper-inset:#d8c5a0;
-  --ink:#2b1d0d; --muted:#6b5230; --faint:#9c855c;
-  --accent:#a64d20; --accent-deco:#c46430; --accent-2:#5d6e34; --accent-2-deco:#778a48;
-  --rule:#2b1d0d; --glow:rgba(166,77,32,0.12); --accent-2-glow:rgba(93,110,52,0.11);
-  --hl-bg:#a64d20; --hl-fg:#f0e0c0; color-scheme:light;
+/* ── AMBER — base amber (~40°) · complement cobalt blue · split violet-blue ── */
+html[data-scheme="amber"][data-mode="light"] {
+  --paper:#f5e6c8; --paper-rgb:245,230,200; --paper-raised:#fbeed6; --paper-inset:#ecdcb8;
+  --ink:#2a1a08; --muted:#6b5028; --faint:#a08858;
+  --accent:#2266a0; --accent-deco:#4d8ac2; --accent-2:#5050b0; --accent-2-deco:#7878c8;
+  --rule:#2a1a08; --glow:rgba(34,102,160,0.12); --accent-2-glow:rgba(80,80,176,0.11);
+  --hl-bg:#2266a0; --hl-fg:#fbeed6; color-scheme:light;
 }
-html[data-scheme="earth"][data-mode="dark"] {
-  --paper:#1c1408; --paper-rgb:28,20,8; --paper-raised:#241a0e; --paper-inset:#150f05;
-  --ink:#d4b07a; --muted:#9c7e4f; --faint:#665030;
-  --accent:#d8804a; --accent-deco:#d8804a; --accent-2:#8aa057; --accent-2-deco:#8aa057;
-  --rule:#d4b07a; --glow:rgba(216,128,74,0.14); --accent-2-glow:rgba(138,160,87,0.12);
-  --hl-bg:#5a3018; --hl-fg:#d4b07a; color-scheme:dark;
+html[data-scheme="amber"][data-mode="dark"] {
+  --paper:#1f1608; --paper-rgb:31,22,8; --paper-raised:#281c0c; --paper-inset:#150f05;
+  --ink:#e0c598; --muted:#a08858; --faint:#6b5028;
+  --accent:#5e9ad4; --accent-deco:#5e9ad4; --accent-2:#8888d4; --accent-2-deco:#8888d4;
+  --rule:#e0c598; --glow:rgba(94,154,212,0.14); --accent-2-glow:rgba(136,136,212,0.12);
+  --hl-bg:#1e4870; --hl-fg:#e0c598; color-scheme:dark;
 }
-html[data-scheme="earth"][data-mode="oled"] {
-  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#070504; --paper-inset:#000;
-  --ink:#b89968; --muted:#806440; --faint:#4a3a22;
-  --accent:#c87040; --accent-deco:#c87040; --accent-2:#7a955a; --accent-2-deco:#7a955a;
-  --rule:#b89968; --glow:rgba(200,112,64,0.10); --accent-2-glow:rgba(122,149,90,0.09);
-  --hl-bg:#3a200f; --hl-fg:#c87040; color-scheme:dark;
-}
-
-/* ── AIR — pale cloud · steel · sky · silver ── */
-html[data-scheme="air"][data-mode="light"] {
-  --paper:#eaf0f3; --paper-rgb:234,240,243; --paper-raised:#f2f6f8; --paper-inset:#dfe6ea;
-  --ink:#2a3540; --muted:#5e6b78; --faint:#9099a3;
-  --accent:#456d96; --accent-deco:#5b86b0; --accent-2:#7a8590; --accent-2-deco:#9099a3;
-  --rule:#2a3540; --glow:rgba(69,109,150,0.11); --accent-2-glow:rgba(122,133,144,0.10);
-  --hl-bg:#456d96; --hl-fg:#eaf0f3; color-scheme:light;
-}
-html[data-scheme="air"][data-mode="dark"] {
-  --paper:#14181d; --paper-rgb:20,24,29; --paper-raised:#1b2026; --paper-inset:#0e1115;
-  --ink:#c8d1da; --muted:#8a949f; --faint:#56606b;
-  --accent:#8eb0d2; --accent-deco:#8eb0d2; --accent-2:#aab4be; --accent-2-deco:#aab4be;
-  --rule:#c8d1da; --glow:rgba(142,176,210,0.13); --accent-2-glow:rgba(170,180,190,0.10);
-  --hl-bg:#3a4e64; --hl-fg:#c8d1da; color-scheme:dark;
-}
-html[data-scheme="air"][data-mode="oled"] {
-  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#06080a; --paper-inset:#000;
-  --ink:#b0bcc8; --muted:#6a737d; --faint:#3a4048;
-  --accent:#87a8c8; --accent-deco:#87a8c8; --accent-2:#909ba5; --accent-2-deco:#909ba5;
-  --rule:#b0bcc8; --glow:rgba(135,168,200,0.09); --accent-2-glow:rgba(144,155,165,0.08);
-  --hl-bg:#1f3045; --hl-fg:#b0bcc8; color-scheme:dark;
+html[data-scheme="amber"][data-mode="oled"] {
+  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#050402; --paper-inset:#000;
+  --ink:#c8a878; --muted:#806840; --faint:#4a3a22;
+  --accent:#4480b8; --accent-deco:#4480b8; --accent-2:#6c6cc4; --accent-2-deco:#6c6cc4;
+  --rule:#c8a878; --glow:rgba(68,128,184,0.10); --accent-2-glow:rgba(108,108,196,0.09);
+  --hl-bg:#143050; --hl-fg:#4480b8; color-scheme:dark;
 }
 
-/* ── WATER — foam · abyss · ocean teal · aqua ── */
-html[data-scheme="water"][data-mode="light"] {
-  --paper:#d6e6e8; --paper-rgb:214,230,232; --paper-raised:#e0edee; --paper-inset:#c5d8db;
-  --ink:#0a2630; --muted:#3e5e68; --faint:#7a949c;
-  --accent:#186576; --accent-deco:#2a8094; --accent-2:#4d9ba6; --accent-2-deco:#6db1bb;
-  --rule:#0a2630; --glow:rgba(24,101,118,0.12); --accent-2-glow:rgba(77,155,166,0.11);
-  --hl-bg:#186576; --hl-fg:#e0edee; color-scheme:light;
+/* ── GREEN — base forest (~140°) · complement magenta · split purple ── */
+html[data-scheme="green"][data-mode="light"] {
+  --paper:#dde9d4; --paper-rgb:221,233,212; --paper-raised:#e5efe0; --paper-inset:#ccd9bf;
+  --ink:#142010; --muted:#4a6638; --faint:#82a070;
+  --accent:#b03478; --accent-deco:#cc4d92; --accent-2:#7a3ab0; --accent-2-deco:#9c5fc8;
+  --rule:#142010; --glow:rgba(176,52,120,0.13); --accent-2-glow:rgba(122,58,176,0.11);
+  --hl-bg:#b03478; --hl-fg:#e5efe0; color-scheme:light;
 }
-html[data-scheme="water"][data-mode="dark"] {
-  --paper:#050e15; --paper-rgb:5,14,21; --paper-raised:#0b151d; --paper-inset:#02080d;
-  --ink:#9bc2cd; --muted:#5e8893; --faint:#3a5660;
-  --accent:#4ba4b8; --accent-deco:#4ba4b8; --accent-2:#79b8c2; --accent-2-deco:#79b8c2;
-  --rule:#9bc2cd; --glow:rgba(75,164,184,0.14); --accent-2-glow:rgba(121,184,194,0.11);
-  --hl-bg:#1a4452; --hl-fg:#9bc2cd; color-scheme:dark;
+html[data-scheme="green"][data-mode="dark"] {
+  --paper:#0e1e0e; --paper-rgb:14,30,14; --paper-raised:#142510; --paper-inset:#081608;
+  --ink:#c8dac0; --muted:#82a070; --faint:#4a6638;
+  --accent:#d660a0; --accent-deco:#d660a0; --accent-2:#a87cd4; --accent-2-deco:#a87cd4;
+  --rule:#c8dac0; --glow:rgba(214,96,160,0.14); --accent-2-glow:rgba(168,124,212,0.12);
+  --hl-bg:#4a1e3a; --hl-fg:#c8dac0; color-scheme:dark;
 }
-html[data-scheme="water"][data-mode="oled"] {
-  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#03070a; --paper-inset:#000;
-  --ink:#7faab6; --muted:#506d77; --faint:#2c3e46;
-  --accent:#4090a4; --accent-deco:#4090a4; --accent-2:#6da4af; --accent-2-deco:#6da4af;
-  --rule:#7faab6; --glow:rgba(64,144,164,0.10); --accent-2-glow:rgba(109,164,175,0.08);
-  --hl-bg:#0e2e3a; --hl-fg:#7faab6; color-scheme:dark;
-}
-
-/* ── FIRE — parchment · char · ember red · flame gold ── */
-html[data-scheme="fire"][data-mode="light"] {
-  --paper:#f6e9d8; --paper-rgb:246,233,216; --paper-raised:#fbf0e2; --paper-inset:#ecdcc4;
-  --ink:#1d0d06; --muted:#5e3324; --faint:#9c6b54;
-  --accent:#cc3a14; --accent-deco:#e85530; --accent-2:#c47820; --accent-2-deco:#e09230;
-  --rule:#1d0d06; --glow:rgba(204,58,20,0.13); --accent-2-glow:rgba(196,120,32,0.11);
-  --hl-bg:#cc3a14; --hl-fg:#fbf0e2; color-scheme:light;
-}
-html[data-scheme="fire"][data-mode="dark"] {
-  --paper:#14080a; --paper-rgb:20,8,10; --paper-raised:#1c0c0e; --paper-inset:#0d0506;
-  --ink:#f0c8a4; --muted:#b08060; --faint:#74503a;
-  --accent:#ff6a3a; --accent-deco:#ff6a3a; --accent-2:#ffb74d; --accent-2-deco:#ffb74d;
-  --rule:#f0c8a4; --glow:rgba(255,106,58,0.15); --accent-2-glow:rgba(255,183,77,0.12);
-  --hl-bg:#5a1d10; --hl-fg:#f0c8a4; color-scheme:dark;
-}
-html[data-scheme="fire"][data-mode="oled"] {
-  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#070303; --paper-inset:#000;
-  --ink:#d4a880; --muted:#7a5238; --faint:#4a2e1e;
-  --accent:#e85530; --accent-deco:#e85530; --accent-2:#f0a040; --accent-2-deco:#f0a040;
-  --rule:#d4a880; --glow:rgba(232,85,48,0.10); --accent-2-glow:rgba(240,160,64,0.08);
-  --hl-bg:#3a1108; --hl-fg:#e85530; color-scheme:dark;
+html[data-scheme="green"][data-mode="oled"] {
+  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#030503; --paper-inset:#000;
+  --ink:#a8c0a0; --muted:#5a7848; --faint:#2e4520;
+  --accent:#b04880; --accent-deco:#b04880; --accent-2:#8854b0; --accent-2-deco:#8854b0;
+  --rule:#a8c0a0; --glow:rgba(176,72,128,0.10); --accent-2-glow:rgba(136,84,176,0.09);
+  --hl-bg:#2e1830; --hl-fg:#b04880; color-scheme:dark;
 }
 
-/* System dark-mode fallback when no scheme is set — uses earth dark palette */
+/* ── BLUE — base navy (~210°) · complement burnt orange · split amber-gold ── */
+html[data-scheme="blue"][data-mode="light"] {
+  --paper:#d8e4ec; --paper-rgb:216,228,236; --paper-raised:#e0eaf0; --paper-inset:#c4d4e0;
+  --ink:#0a2238; --muted:#3e5e7a; --faint:#7898b0;
+  --accent:#cc6420; --accent-deco:#e08440; --accent-2:#d49a20; --accent-2-deco:#e8b850;
+  --rule:#0a2238; --glow:rgba(204,100,32,0.13); --accent-2-glow:rgba(212,154,32,0.11);
+  --hl-bg:#cc6420; --hl-fg:#e0eaf0; color-scheme:light;
+}
+html[data-scheme="blue"][data-mode="dark"] {
+  --paper:#0a1828; --paper-rgb:10,24,40; --paper-raised:#0f1e30; --paper-inset:#051020;
+  --ink:#b8d0e2; --muted:#6c8aa4; --faint:#3a5670;
+  --accent:#f08a48; --accent-deco:#f08a48; --accent-2:#f4c860; --accent-2-deco:#f4c860;
+  --rule:#b8d0e2; --glow:rgba(240,138,72,0.14); --accent-2-glow:rgba(244,200,96,0.12);
+  --hl-bg:#5a3010; --hl-fg:#b8d0e2; color-scheme:dark;
+}
+html[data-scheme="blue"][data-mode="oled"] {
+  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#020408; --paper-inset:#000;
+  --ink:#98b4c8; --muted:#506880; --faint:#2c3e54;
+  --accent:#d4783c; --accent-deco:#d4783c; --accent-2:#d4a040; --accent-2-deco:#d4a040;
+  --rule:#98b4c8; --glow:rgba(212,120,60,0.10); --accent-2-glow:rgba(212,160,64,0.09);
+  --hl-bg:#3a1f0a; --hl-fg:#d4783c; color-scheme:dark;
+}
+
+/* ── NEUTRAL — warm gray · signal red accent · teal split ── */
+html[data-scheme="neutral"][data-mode="light"] {
+  --paper:#e8e6e0; --paper-rgb:232,230,224; --paper-raised:#f0eee8; --paper-inset:#dad8d2;
+  --ink:#1a1a18; --muted:#5a5852; --faint:#908e88;
+  --accent:#c63a3a; --accent-deco:#dc5a5a; --accent-2:#3a9cb0; --accent-2-deco:#5cb4c8;
+  --rule:#1a1a18; --glow:rgba(198,58,58,0.12); --accent-2-glow:rgba(58,156,176,0.11);
+  --hl-bg:#c63a3a; --hl-fg:#f0eee8; color-scheme:light;
+}
+html[data-scheme="neutral"][data-mode="dark"] {
+  --paper:#15151a; --paper-rgb:21,21,26; --paper-raised:#1c1c20; --paper-inset:#0f0f12;
+  --ink:#d8d6d0; --muted:#908e88; --faint:#5a5852;
+  --accent:#e85c5c; --accent-deco:#e85c5c; --accent-2:#5cb8cc; --accent-2-deco:#5cb8cc;
+  --rule:#d8d6d0; --glow:rgba(232,92,92,0.14); --accent-2-glow:rgba(92,184,204,0.12);
+  --hl-bg:#4a1c1c; --hl-fg:#d8d6d0; color-scheme:dark;
+}
+html[data-scheme="neutral"][data-mode="oled"] {
+  --paper:#000; --paper-rgb:0,0,0; --paper-raised:#050505; --paper-inset:#000;
+  --ink:#b8b6b0; --muted:#686660; --faint:#3a3834;
+  --accent:#cc4040; --accent-deco:#cc4040; --accent-2:#44a0b4; --accent-2-deco:#44a0b4;
+  --rule:#b8b6b0; --glow:rgba(204,64,64,0.10); --accent-2-glow:rgba(68,160,180,0.09);
+  --hl-bg:#3a1010; --hl-fg:#cc4040; color-scheme:dark;
+}
+
+/* System dark-mode fallback when no scheme is set — uses amber dark palette */
 @media (prefers-color-scheme: dark) {
   html:not([data-scheme]) {
-    --paper:#1c1408; --paper-rgb:28,20,8; --paper-raised:#241a0e; --paper-inset:#150f05;
-    --ink:#d4b07a; --muted:#9c7e4f; --faint:#665030;
-    --accent:#d8804a; --accent-deco:#d8804a; --accent-2:#8aa057; --accent-2-deco:#8aa057;
-    --rule:#d4b07a; --glow:rgba(216,128,74,0.14); --accent-2-glow:rgba(138,160,87,0.12);
-    --hl-bg:#5a3018; --hl-fg:#d4b07a; color-scheme:dark;
+    --paper:#1f1608; --paper-rgb:31,22,8; --paper-raised:#281c0c; --paper-inset:#150f05;
+    --ink:#e0c598; --muted:#a08858; --faint:#6b5028;
+    --accent:#5e9ad4; --accent-deco:#5e9ad4; --accent-2:#8888d4; --accent-2-deco:#8888d4;
+    --rule:#e0c598; --glow:rgba(94,154,212,0.14); --accent-2-glow:rgba(136,136,212,0.12);
+    --hl-bg:#1e4870; --hl-fg:#e0c598; color-scheme:dark;
   }
 }
 
